@@ -9,9 +9,9 @@ import { useDispatch } from "react-redux";
 
 const { Title } = Typography;
 
-const Login = () => {
-  const navigate = useNavigate(LoginPage);
-}
+// const Login = () => {
+//   const navigate = useNavigate(LoginPage);
+// }
 
 function LoginPage(props) {
   const dispatch = useDispatch();
@@ -150,5 +150,6 @@ function LoginPage(props) {
 };
 
 // export default navigate(LoginPage);
-export default Login;
+// export default Login;
+export default LoginPage;
 

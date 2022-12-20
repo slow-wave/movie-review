@@ -6,9 +6,9 @@ import { USER_SERVER } from '../../../Config';
 import {useNavigate} from 'react-router-dom';
 import { useSelector } from "react-redux";
 
-const ToMenu = () => {
-  const navigate = useNavigate(RightMenu);
-}
+// const ToMenu = () => {
+//   const navigate = useNavigate(RightMenu);
+// }
 
 function RightMenu(props) {
   const user = useSelector(state => state.user)
@@ -45,5 +45,6 @@ function RightMenu(props) {
   }
 }
 
-export default ToMenu;
+// export default ToMenu;
+export default RightMenu;
 

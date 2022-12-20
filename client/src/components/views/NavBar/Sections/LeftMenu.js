@@ -23,4 +23,4 @@ function LeftMenu(props) {
   )
 }
 
-export default LeftMenu
+export default LeftMenu;
