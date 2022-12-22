@@ -1,61 +1,54 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require("express");
+const app = express();
+const path = require("path");
+const cors = require('cors')
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
-var app = express();
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
+const config = require("./config/key");
 
-// body-parser setup
+const mongoose = require("mongoose");
+const connect = mongoose.connect(config.mongoURI,
+  {
+    useNewUrlParser: true, useUnifiedTopology: true,
+    useCreateIndex: true, useFindAndModify: false
+  })
+  .then(() => console.log('MongoDB Connected...'))
+  .catch(err => console.log(err));
+
+app.use(cors())
+
+//to not get any deprecation warning or error
+//support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: true }));
+//to get json data
+// support parsing of application/json type post data
 app.use(bodyParser.json());
-
-// mongoose setup
-mongoose.Promise = global.Promise;
-mongoose.createConnection('mongodb://127.0.0.1:27017/', { useNewUrlParser: true });
-
-var db = mongoose.connection;
-
-db.on('error', console.error);
-db.once('open', function(){
-    console.log("Connected to mongod server");
-});
-
-// mongodb://localhost/<db-name>
-mongoose.connect('mongodb://localhost/User');
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/users', require('./routes/users'));
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+
+//use this to show the image you have in node js server to client (react js)
+//https://stackoverflow.com/questions/48914987/send-image-path-from-node-js-express-server-to-react-client
+app.use('/uploads', express.static('uploads'));
+
+// Serve static assets if in production
+if (process.env.NODE_ENV === "production") {
+
+  // Set static folder   
+  // All the javascript and css files will be read and served from this folder
+  app.use(express.static("client/build"));
+
+  // index.html for all page routes    html or routing and naviagtion
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+  });
+}
+
+const port = process.env.PORT || 5000
+
+app.listen(port, () => {
+  console.log(`Server Listening on ${port}`)
 });
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-module.exports = app;
