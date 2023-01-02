@@ -27,7 +27,6 @@ function MovieDetail(props) {
             .then(response => response.json())
             .then(response => {
                 setCasts(response)
-                console.log(Casts)
             })
     }, [])
 
@@ -46,7 +45,8 @@ function MovieDetail(props) {
             <div style={{ width: '85%', margin: '1rem auto'}}>
                 {/* Favorite button */}
                 <div style = {{ display: 'flex', justfyContent: 'flex-end' }}>
-                    <Favorite movieInfo={Movie} movieId={movieId} userFrom={localStorage.getItem('UserId')}/>
+                    {/* <Favorite movieInfo={Movie} movieId={movieId} userFrom={localStorage.getItem('UserId')}/> */}
+                    <Favorite movieInfo={Movie} movieId={movieId}/>
                 </div>
                 {/* Movie Info */}
                 <MovieInfo
