@@ -26,8 +26,6 @@ function Favorite(props) {
             .then(response => {
                 setFavoriteNumber(response.data.favoriteNumber)
                 if(response.data.success) {
-                    console.log(response.data)
-
                 } else {
                     alert('숫자 정보 가져오기 실패')
                 }
@@ -37,8 +35,6 @@ function Favorite(props) {
             .then(response => {
                 if(response.data.success) {
                     setFavorited(response.data.favorited)
-                    console.log(response.data)
-
                 } else {
                     alert('정보 가져오기 실패')
                 }

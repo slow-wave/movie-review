@@ -4,6 +4,7 @@ import MainImage from '../LandingPage/Sections/MainImage'
 import MovieInfo from './Sections/MovieInfo'
 import GridCards from '../commons/GridCards'
 import Favorite from './Sections/Favorite'
+import Comment from './Sections/Comment'
 import { Row, Button } from 'antd';
 
 function MovieDetail(props) {
@@ -53,6 +54,8 @@ function MovieDetail(props) {
                 />
 
                 <br />
+                {/* Comment */}
+                <Comment movieId={movieId} userFrom={localStorage.getItem('userId')}/>
                 {/* Actors Grid */}
                 <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem'}}>
                     <Button onClick={toggleActorView}>Toogle Actor View</Button>

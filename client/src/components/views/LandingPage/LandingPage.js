@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { API_URL, API_KEY, IMAGE_BASE_URL } from "../../Config";
 import MainImage from './Sections/MainImage';
 import GridCards from '../commons/GridCards';
-import { Row } from 'antd';
-import { Button } from 'antd';
+import { Row, Button } from 'antd';
 
 function LandingPage() {
 
@@ -20,8 +19,6 @@ function LandingPage() {
         fetch(endpoint)
             .then(response => response.json())
             .then(response => {
-                console.log(response)
-                console.log('button',[...Movies,...response.results])
                 setMovies([...Movies,...response.results])
                 setMainMovieImage(response.results[0])
                 setCurrentPage(response.page)
@@ -36,7 +33,7 @@ function LandingPage() {
     return (
         <div style = {{ width: '100%', margin: '0'}}>
             {/* Main Image */}
-            { MainImage && 
+            { MainMovieImage && 
                 <MainImage image={`${IMAGE_BASE_URL}w1280${MainMovieImage.backdrop_path}`}
                     title={MainMovieImage.original_title}
                     text={MainMovieImage.overview}/>
