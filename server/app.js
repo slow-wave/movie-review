@@ -6,18 +6,20 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const config = require("./config/key");
 
-// Import the mongoose module
-const mongoose = require("mongoose");
-
-// Set up default mongoose connection
-const mongoDB = "mongodb://127.0.0.1/movie";
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
-
-// Get the default connection
-const db = mongoose.connection;
-
-// Bind connection to error event (to get notification of connection errors)
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
+// 1. mongoose 모듈 가져오기
+var mongoose = require('mongoose');
+// 2. testDB 세팅
+mongoose.connect('mongodb://localhost/test');
+// 3. 연결된 testDB 사용
+var db = mongoose.connection;
+// 4. 연결 실패
+db.on('error', function(){
+    console.log('Connection Failed!');
+});
+// 5. 연결 성공
+db.once('open', function() {
+    console.log('Connected!');
+});
 
 app.use(cors())
 

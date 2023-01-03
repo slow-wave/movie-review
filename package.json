@@ -27,5 +27,9 @@
   "devDependencies": {
     "concurrently": "^7.6.0",
     "nodemon": "^2.0.20"
-  }
+  },
+  "scripts": {
+    "start" : "node server/app.js",
+    "dev": "concurrently \"npm run start\" \"npm run start --prefix client\""
+}
 }
