@@ -6,6 +6,7 @@ import ReplyComment from './ReplyComment'
 function Comment(props) {
     const movieId= props.movieId
     const userFrom= props.userFrom
+
     const [CommentValue, setCommentValue] = useState("")
 
     const handleClick = (event) => {

@@ -9,7 +9,6 @@ import { Row, Button } from 'antd';
 import Axios from 'axios'
 
 function MovieDetail(props) {
-
     let movieId = props.match.params.movieId
     let userFrom = localStorage.getItem('userId')
 
@@ -19,7 +18,7 @@ function MovieDetail(props) {
     const [Comments, setComments] = useState([])
 
     const movieVariable = {
-        mvoieId: movieId
+        movieId: movieId
     }
 
     useEffect(() => {

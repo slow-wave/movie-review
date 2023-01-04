@@ -5,12 +5,19 @@ import Axios from 'axios'
 const{ TextArea } = Input;
 
 function SingleComment(props) {
+    const [OpenReply, setOpenReply] = useState(false)
+    const [CommentValue, setCommentValue] = useState("")
+
     const movieId= props.movieId
     const userFrom= props.userFrom
 
-    const [OpenReply, setOpenReply] = useState(false)
-    const [CommentValue, setCommentValue] = useState("")
-        
+    const variables = {
+        content: CommentValue,
+        writer: userFrom,
+        movieId,
+        responseTo: props.comment._id
+    }
+    
     const onClickReplyOpen = () => {
         setOpenReply(!OpenReply)
     }
@@ -21,13 +28,7 @@ function SingleComment(props) {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        const variables = {
-            content: CommentValue,
-            writer: userFrom,
-            movieId,
-            responseTo: props.comment._id
-        }
-        
+
         Axios.post('/api/comment/saveComment', variables)
             .then(response => {
                 if(response.data.success) {
@@ -44,6 +45,17 @@ function SingleComment(props) {
         <span onClick={onClickReplyOpen} key="comment-basic-reply-to">Reply to </span>    
     ]
     
+    const onDelete = () => {
+        Axios.post('/api/comment/deleteComment', variables)
+        .then(response => {
+            if(response.data.success) {
+            } else {
+                alert('comment 삭제 실패')
+            }
+        })
+
+    }
+
     return (
         <div>
             <Comment
@@ -60,7 +72,12 @@ function SingleComment(props) {
                         {props.comment.content}
                     </p>
                 }
-            ></Comment>
+            >
+                {( userFrom === props.comment.writer._id &&
+                    <Button onClick={onDelete}>삭제</Button>
+                )}
+            </Comment>
+            
 
             {OpenReply &&
                 <form style={{ display: 'flex' }} onSubmit={onSubmit}>

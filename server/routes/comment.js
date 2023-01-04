@@ -16,12 +16,20 @@ router.post("/saveComment", (req, res) => {
 })
 
 router.post("/getComments", (req, res) => {
-    Comment.find({ "moviId": req.body.movieId })
-    .populate('writer')
-    .exec((err, comments) => {
-        if(err) return res.status(400).send(err)
-        res.status(200).json({success: true, comments})
+    Comment.find({ "movieId": req.body.movieId })
+        .populate('writer')
+        .exec((err, comments) => {
+            if(err) return res.status(400).send(err)
+            res.status(200).json({success: true, comments})
     })
+})
+
+router.post('/deleteComment', (req, res) => {
+    Comment.findOneAndDelete({ _id: req.body.responseTo })
+        .exec((err, result ) => {
+            if(err) return res.status(400).send(err)
+            return res.status(200).json({ success: true, result })
+        })
 })
 
 module.exports=router;
