@@ -6,13 +6,21 @@ import GridCards from '../commons/GridCards'
 import Favorite from './Sections/Favorite'
 import Comment from './Sections/Comment'
 import { Row, Button } from 'antd';
+import Axios from 'axios'
 
 function MovieDetail(props) {
 
     let movieId = props.match.params.movieId
+    let userFrom = localStorage.getItem('userId')
+
     const [Movie, setMovie] = useState([])
     const [Casts, setCasts] = useState([])
     const [ActorToggle, setActorToggle] = useState(false)
+    const [Comments, setComments] = useState([])
+
+    const movieVariable = {
+        mvoieId: movieId
+    }
 
     useEffect(() => {
         let endpointCrew = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`
@@ -29,7 +37,21 @@ function MovieDetail(props) {
             .then(response => {
                 setCasts(response)
             })
+
+        Axios.post('/api/comment/getComments', movieVariable)
+            .then(response => {
+                if(response.data.success) {
+                    setComments(response.data.comments)
+                    console.log('댓글가져오기',response.data)
+                } else {
+                    alert('댓글 정보 가져오기 실패')
+                }
+            })
     }, [])
+
+    const updateComment = (newComment) => {
+        setComments(Comments.concat(newComment))
+    }
 
     const toggleActorView = () => {
         setActorToggle(!ActorToggle)
@@ -46,7 +68,7 @@ function MovieDetail(props) {
             <div style={{ width: '85%', margin: '1rem auto'}}>
                 {/* Favorite button */}
                 <div style = {{ display: 'flex', justfyContent: 'flex-end' }}>
-                    <Favorite movieInfo={Movie} movieId={movieId} userFrom={localStorage.getItem('userId')}/>
+                    <Favorite movieInfo={Movie} movieId={movieId} userFrom={userFrom}/>
                 </div>
                 {/* Movie Info */}
                 <MovieInfo
@@ -55,7 +77,8 @@ function MovieDetail(props) {
 
                 <br />
                 {/* Comment */}
-                <Comment movieId={movieId} userFrom={localStorage.getItem('userId')}/>
+                <Comment CommentLists={Comments} movieId={movieId} userFrom={localStorage.getItem('userId')} refreshFunction={updateComment} />
+
                 {/* Actors Grid */}
                 <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem'}}>
                     <Button onClick={toggleActorView}>Toogle Actor View</Button>
