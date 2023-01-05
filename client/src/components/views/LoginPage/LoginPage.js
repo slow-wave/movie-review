@@ -9,10 +9,6 @@ import { useDispatch } from "react-redux";
 
 const { Title } = Typography;
 
-// const Login = () => {
-//   const navigate = useNavigate(LoginPage);
-// }
-
 function LoginPage(props) {
   const dispatch = useDispatch();
   const rememberMeChecked = localStorage.getItem("rememberMe") ? true : false;
@@ -149,7 +145,5 @@ function LoginPage(props) {
   );
 };
 
-// export default navigate(LoginPage);
-// export default Login;
 export default LoginPage;
 
