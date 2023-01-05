@@ -3,16 +3,13 @@ import { API_URL, API_KEY, IMAGE_BASE_URL } from "../../Config";
 import MainImage from './Sections/MainImage';
 import GridCards from '../commons/GridCards';
 import { Row, Button } from 'antd';
-import { Input } from 'antd';
-
-const { Search } = Input;
+import { SearchOutlined } from '@ant-design/icons';
 
 function LandingPage() {
 
     const [Movies, setMovies] = useState([])
     const [MainMovieImage, setMainMovieImage] = useState(null)
     const [CurrentPage, setCurrentPage] = useState(0)
-    const [CurrentSearchPage, setCurrentSearchPage] = useState(0)
 
     useEffect(() => {
         const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
@@ -34,19 +31,6 @@ function LandingPage() {
         fetchMovies(endpoint)
     }
 
-    const onSearch = (event) => {
-    }
-
-    const updateSearchTerms = (newSearchTerm) => {
-        const endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&page=${CurrentSearchPage + 1}&query=${newSearchTerm.currentTarget.value}`;
-
-        fetch(endpoint)
-        .then(response => response.json())
-            .then(response => {
-                setMovies([...response.results])
-            }) 
-    }
-
     return (
         <div style = {{ width: '100%', margin: '0'}}>
             {/* Main Image */}
@@ -57,11 +41,7 @@ function LandingPage() {
             }
             {/* Search Feature */}
             <div style = {{ width: '85%', margin: '1rem auto', display:'flex', justifyContent:'flex-end'}}>
-                <Search
-                    onChange={updateSearchTerms}
-                    placeholder="Search By Typing"
-                    onSearch={onSearch}
-                />
+                <Button type="primary" href="/search" icon={<SearchOutlined />}>Search</Button>
             </div>
 
             <div style = {{ width: '85%', margin: '1rem auto'}}>
@@ -82,12 +62,10 @@ function LandingPage() {
                         </React.Fragment>
                     ))}
                 </Row>
+                <div style= {{ display: 'flex', justfycontent: 'center'}}>
+                    <Button onClick={loadMoreItems}> Load More</Button>
+                </div>
             </div>
-
-            <div style= {{ display: 'flex', justfycontent: 'center'}}>
-                <Button onClick={loadMoreItems}> Load More</Button>
-            </div>
-        
         </div>
 
     )
