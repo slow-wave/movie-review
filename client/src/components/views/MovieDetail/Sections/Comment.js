@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SingleComment from './SingleComment'
 import ReplyComment from './ReplyComment'
 
@@ -44,7 +44,7 @@ function Comment(props) {
                 (!comment.responseTo &&
                     <React.Fragment>
                         <SingleComment comment={comment} movieId={movieId} userFrom={userFrom} refreshFunction={props.refreshFunction} />
-                        <ReplyComment CommentLists={props.CommentLists} movieId={movieId} parentCommentId={comment._id} refreshFunction={props.refreshFunction} />
+                        {/* <ReplyComment CommentLists={props.CommentLists} movieId={movieId} parentCommentId={comment._id} refreshFunction={props.refreshFunction} /> */}
                     </React.Fragment>
                 )
             ))}

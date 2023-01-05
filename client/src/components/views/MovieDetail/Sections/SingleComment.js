@@ -1,49 +1,14 @@
-import React, { useState } from 'react'
-import { Comment, Avatar, Button, Input } from 'antd';
+import React from 'react'
+import { Comment, Avatar, Button } from 'antd';
 import Axios from 'axios'
-
-const{ TextArea } = Input;
+import LikeDislikes from './LikeDislikes';
 
 function SingleComment(props) {
-    const [OpenReply, setOpenReply] = useState(false)
-    const [CommentValue, setCommentValue] = useState("")
-
-    const movieId= props.movieId
-    const userFrom= props.userFrom
-
     const variables = {
-        content: CommentValue,
-        writer: userFrom,
-        movieId,
+        writer: props.userFrom,
+        movieId: props.movieId,
         responseTo: props.comment._id
     }
-    
-    const onClickReplyOpen = () => {
-        setOpenReply(!OpenReply)
-    }
-
-    const onHandleChange = (event) => {
-        setCommentValue(event.currentTarget.value)
-    }
-
-    const onSubmit = (event) => {
-        event.preventDefault();
-
-        Axios.post('/api/comment/saveComment', variables)
-            .then(response => {
-                if(response.data.success) {
-                    setCommentValue("")
-                    setOpenReply(!OpenReply)
-                    props.refreshFunction(response.data.result)
-                } else {
-                    alert('댓글 저장 실패')
-                }
-            })          
-    }
-
-    const actions = [
-        <span onClick={onClickReplyOpen} key="comment-basic-reply-to">Reply to </span>    
-    ]
     
     const onDelete = () => {
         Axios.post('/api/comment/deleteComment', variables)
@@ -53,13 +18,11 @@ function SingleComment(props) {
                 alert('comment 삭제 실패')
             }
         })
-
     }
 
     return (
         <div>
             <Comment
-                actions={actions}
                 author={props.comment.writer.name}
                 avatar={
                     <Avatar
@@ -73,24 +36,12 @@ function SingleComment(props) {
                     </p>
                 }
             >
-                {( userFrom === props.comment.writer._id &&
+                <LikeDislikes userId={props.userFrom} commentId={props.comment._id}/>
+                
+                {( props.userFrom === props.comment.writer._id &&
                     <Button onClick={onDelete}>삭제</Button>
                 )}
             </Comment>
-            
-
-            {OpenReply &&
-                <form style={{ display: 'flex' }} onSubmit={onSubmit}>
-                    <TextArea
-                        style={{ width: '100%', borderRadius: '5px' }}
-                        onChange={onHandleChange}
-                        value={CommentValue}
-                        placeholder="write some comments"
-                    />
-                    <br />
-                    <Button style={{ width: '20%', height: '52px' }} onClick={onSubmit}>Submit</Button>
-                </form>
-            }
         </div>
     )
 }

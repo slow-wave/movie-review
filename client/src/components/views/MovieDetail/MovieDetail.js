@@ -5,6 +5,7 @@ import MovieInfo from './Sections/MovieInfo'
 import GridCards from '../commons/GridCards'
 import Favorite from './Sections/Favorite'
 import Comment from './Sections/Comment'
+import LikeDislikes from './Sections/LikeDislikes'
 import { Row, Button } from 'antd';
 import Axios from 'axios'
 
@@ -41,7 +42,6 @@ function MovieDetail(props) {
             .then(response => {
                 if(response.data.success) {
                     setComments(response.data.comments)
-                    console.log('댓글가져오기',response.data)
                 } else {
                     alert('댓글 정보 가져오기 실패')
                 }
@@ -70,13 +70,14 @@ function MovieDetail(props) {
                     <Favorite movieInfo={Movie} movieId={movieId} userFrom={userFrom}/>
                 </div>
                 {/* Movie Info */}
-                <MovieInfo
-                    movie={Movie}
-                />
+                <MovieInfo movie={Movie}/>
 
                 <br />
+                {/* Like Info */}
+                <LikeDislikes movieId={movieId} userFrom={userFrom}/>
+
                 {/* Comment */}
-                <Comment CommentLists={Comments} movieId={movieId} userFrom={localStorage.getItem('userId')} refreshFunction={updateComment} />
+                <Comment CommentLists={Comments} movieId={movieId} userFrom={userFrom} refreshFunction={updateComment} />
 
                 {/* Actors Grid */}
                 <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem'}}>
