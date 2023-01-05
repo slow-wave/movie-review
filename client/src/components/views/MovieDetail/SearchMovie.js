@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { API_URL, API_KEY, IMAGE_BASE_URL } from '../../Config'
 import GridCards from '../commons/GridCards'
 import { Row, Button } from 'antd';
@@ -8,7 +8,7 @@ const { Search } = Input;
 
 function SearchMovie() {
     const [Movies, setMovies] = useState([])
-    const [CurrentSearchPage, setCurrentSearchPage] = useState(0)
+    const [CurrentSearchPage, setCurrentSearchPage] = useState(1)
     const [SearchTerm, setSearchTerm] = useState('')
 
     const fetchMovies = (endpoint) => {
@@ -21,7 +21,9 @@ function SearchMovie() {
     }
 
     const updateSearchTerms = (newSearchTerm) => {
-        const endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&page=${CurrentSearchPage + 1}&query=${newSearchTerm}`;
+        const endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&page=${CurrentSearchPage}&query=${newSearchTerm}`;
+        // setCurrentSearchPage(1)
+        // setMovies([])
         fetchMovies(endpoint)
         setSearchTerm(newSearchTerm)
     }
@@ -41,7 +43,7 @@ function SearchMovie() {
             
             </div>
                 <div style = {{ width: '85%', margin: '1rem auto'}}>
-                    <h2>Movies by latest</h2>
+                    <h2>Results</h2>
                     <hr />
 
                     {/* Movie Grid Cards */}
