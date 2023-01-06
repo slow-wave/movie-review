@@ -9,27 +9,18 @@ const { Search } = Input;
 function SearchMovie() {
     const [Movies, setMovies] = useState([])
     const [CurrentSearchPage, setCurrentSearchPage] = useState(1)
-    const [SearchTerm, setSearchTerm] = useState('')
 
     const fetchMovies = (endpoint) => {
         fetch(endpoint)
         .then(response => response.json())
             .then(response => {
-                setMovies([...Movies, ...response.results])
+                setMovies([Movies, ...response.results])
                 setCurrentSearchPage(response.page)
             }) 
     }
 
     const updateSearchTerms = (newSearchTerm) => {
-        const endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&page=${CurrentSearchPage}&query=${newSearchTerm}`;
-        // setCurrentSearchPage(1)
-        // setMovies([])
-        fetchMovies(endpoint)
-        setSearchTerm(newSearchTerm)
-    }
-
-    const loadMoreItems = () => {
-        const endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&page=${CurrentSearchPage + 1}&query=${SearchTerm}`;
+        const endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&page=${CurrentSearchPage}&query=${newSearchTerm.currentTarget.value}`;
         fetchMovies(endpoint)
     }
 
@@ -37,7 +28,7 @@ function SearchMovie() {
         <div style = {{ width: '100%', margin: '0'}}>
             <div style = {{ width: '85%', margin: '1rem auto', display:'flex', justifyContent:'flex-end'}}>
                 <Search
-                    onSearch={updateSearchTerms}
+                    onChange={updateSearchTerms}
                     placeholder="Search By Typing"
                 />
             
@@ -60,9 +51,9 @@ function SearchMovie() {
                             </React.Fragment>
                         ))}
                     </Row>
-                    <div style= {{ display: 'flex', justfycontent: 'center'}}>
+                    {/* <div style= {{ display: 'flex', justfycontent: 'center'}}>
                         <Button onClick={loadMoreItems}> Load More</Button>
-                    </div>
+                    </div> */}
                 </div>
 
         </div>
