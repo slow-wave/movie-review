@@ -1,8 +1,9 @@
+import './favorite.css'
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import './favorite.css'
-import { Popover } from 'antd'
 import { IMAGE_BASE_URL } from '../../Config'
+import { Popover, Button } from 'antd'
+import { EditOutlined } from '@ant-design/icons';
 
 function FavoritePage() {
     const [Favorites, setFavorites] = useState([])
@@ -22,6 +23,7 @@ function FavoritePage() {
         })
 
     }
+    
     const onClickDelete = (movieId, userFrom) => {
         const variables = {
             movieId,
@@ -50,7 +52,8 @@ function FavoritePage() {
                 <td>{favorite.movieTitle}</td>
             </Popover>
             <td>{favorite.movieRunTime}</td>
-            <td><button onClick={() =>onClickDelete(favorite.movieId, favorite.userFrom)}>Remove</button></td>
+            <td><Button onClick={() => onClickDelete(favorite.movieId, favorite.userFrom)}>Remove</Button></td>
+            <td><Button href={`/review/${favorite.userFrom}/${favorite.movieId}`}><EditOutlined /></Button></td>
         </tr>
     })
 
@@ -64,6 +67,7 @@ function FavoritePage() {
                         <th>Movie Title</th>
                         <th>Movie RunTime</th>
                         <th>Remove from Favorite</th>
+                        <th>Review</th>
                     </tr>
                 </thead>
                 <tbody>
