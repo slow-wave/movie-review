@@ -52,6 +52,7 @@ function Favorite(props) {
                 }
             })
         } else {
+            console.log(variables)
             Axios.post('/api/favorite/addToFavorite', variables)
             .then(response => {
                 if(response.data.success) {
