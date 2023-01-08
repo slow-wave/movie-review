@@ -28,7 +28,7 @@ router.post('/favorited', (req,res) => {
 
 router.post('/addToFavorite', (req, res) => {
     const favorite = new Favorite(req.body)
-    favorite.save((err, doc) => {
+    favorite.save((err) => {
         if(err) return res.status(400).send(err)
         return res.status(200).json({ success: true })
     })

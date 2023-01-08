@@ -16,20 +16,21 @@ function Review(props) {
     const onClickSubmit = (event) => {
         console.log(bestScore)
 
-        // let variables = {
-        //     writer : userId,
-        //     movieId,
-        //     mainContent: document.getElementById('one-line').value,
-        //     comment: document.getElementById('detail').value
-        // }
+        let variables = {
+            writer : userId,
+            movieId,
+            mainContent: document.getElementById('one-line').value,
+            comment: document.getElementById('detail').value,
+            ratingTotal : bestScore
+        }
 
-        // Axios.post('/api/review/submit', variables)
-        //     .then(response => {
-        //         if(response.data.success) {
-        //         }else {
-        //             alert('등록 실패')
-        //         }
-        //     })
+        Axios.post('/api/review/submit', variables)
+            .then(response => {
+                if(response.data.success) {
+                }else {
+                    alert('등록 실패')
+                }
+            })
     }
     
     return (
