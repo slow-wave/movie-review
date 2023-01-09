@@ -21,7 +21,6 @@ function FavoritePage() {
                 alert("영화 정보 가져오기 실패")
             }
         })
-
     }
     
     const onClickDelete = (movieId, userFrom) => {
@@ -53,7 +52,7 @@ function FavoritePage() {
             </Popover>
             <td>{favorite.movieRunTime}</td>
             <td><Button onClick={() => onClickDelete(favorite.movieId, favorite.userFrom)}>Remove</Button></td>
-            <td><Button href={`/review/${favorite.userFrom}/${favorite.movieId}`}><EditOutlined /></Button></td>
+            <td><Button href={`/review/submit/${favorite.userFrom}/${favorite.movieId}`}><EditOutlined /></Button></td>
         </tr>
     })
 

@@ -10,7 +10,9 @@ import Footer from "./views/Footer/Footer"
 import MovieDetail from "./views/MovieDetail/MovieDetail";
 import FavoritePage from './views/FavoritePage/FavoritePage';
 import SearchMoviePage from './views/MovieDetail/SearchMovie';
-import ReviewPage from './views/ReviewPage/Review';
+import ReviewSubmitPage from './views/ReviewPage/ReviewSubmit';
+import ReviewShowPage from './views/ReviewPage/ReviewShow';
+import ReviewDetailPage from './views/ReviewPage/ReviewDetail'
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
@@ -28,7 +30,9 @@ function App() {
           <Route exact path="/movie/:movieId" component={Auth(MovieDetail, null)}/>
           <Route exact path="/favorite" component={Auth(FavoritePage, true)}/>
           <Route exact path="/search" component={Auth(SearchMoviePage, null)}/>
-          <Route exact path="/review/:userId/:movieId" component={Auth(ReviewPage, true)}/>
+          <Route exact path="/review/submit/:userId/:movieId" component={Auth(ReviewSubmitPage, true)}/>
+          <Route exact path="/review" component={Auth(ReviewShowPage, true)}/>
+          <Route exact path="/review/:reviewId/:movieId" component={Auth(ReviewDetailPage, true)}/>
         </Switch>
       </div>
       <Footer />

@@ -26,10 +26,6 @@ function RightMenu(props) {
       label: <a href="/">Home</a>,
     },
     {
-      label: <a href="/favorite">Favorite</a>,
-      icon: <StarOutlined />
-    },
-    {
       label: <a href="/login">Signin</a>,
       key: "mail",
       icon: <LoginOutlined/>
@@ -46,6 +42,10 @@ function RightMenu(props) {
     },
     {
       label: <a href="/favorite">Favorite</a>,
+      icon: <StarOutlined/>
+    },
+    {
+      label: <a href={`/review`}>Review</a>,
     },
     {
       label: <a onClick={logoutHandler}>Logout</a>,

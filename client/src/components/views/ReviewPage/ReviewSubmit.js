@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Input } from 'antd';
+import React, { useState } from 'react';
+import { Button } from 'antd';
 import TagsPage from './Sections/Tags'
 import RatingPage from './Sections/Rating'
 import ContentPage from './Sections/Content'
 import Axios from 'axios';
-
-const { TextArea } = Input;
 
 function Review(props) {
     const [bestScore, setbestScore] = useState(0)
@@ -46,6 +44,7 @@ function Review(props) {
                 <TagsPage setTags={setTags} tags={tags}/>
             <hr /></div>
             <div style = {{ width: '85%', margin: '1rem auto'}}>
+                <h3>Review</h3>
                 <ContentPage/>
             </div>
             <div style = {{ width: '85%', margin: '1rem auto'}}>
