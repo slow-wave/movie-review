@@ -6,7 +6,6 @@ import { Row, Button } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
 function LandingPage() {
-
     const [Movies, setMovies] = useState([])
     const [MainMovieImage, setMainMovieImage] = useState(null)
     const [CurrentPage, setCurrentPage] = useState(0)

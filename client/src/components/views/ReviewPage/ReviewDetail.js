@@ -45,15 +45,15 @@ function ReviewDetail(props) {
                 <hr /></div>
                 <div style = {{ width: '85%', margin: '1rem auto'}}>
                     <h3>Star Ratings</h3>
-                    {[...Array(parseInt(Review.ratingTotal))].map((el, idx) => {
-                        return (
-                            <FaStar
-                                id='rating'
-                                size="50"
-                                color="#fcc419"
-                            />
-                        );
-                    })}
+                        {[...Array(parseInt(Review.ratingTotal))].map((el, idx) => {
+                            return (
+                                <FaStar
+                                    id='rating'
+                                    size="50"
+                                    color="#fcc419"
+                                />
+                            );
+                        })}
                 <hr /></div>
                 <div style = {{ width: '85%', margin: '1rem auto'}}>
                     <h3>Tags</h3>

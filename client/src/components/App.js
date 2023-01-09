@@ -30,9 +30,9 @@ function App() {
           <Route exact path="/movie/:movieId" component={Auth(MovieDetail, null)}/>
           <Route exact path="/favorite" component={Auth(FavoritePage, true)}/>
           <Route exact path="/search" component={Auth(SearchMoviePage, null)}/>
-          <Route exact path="/review/submit/:userId/:movieId" component={Auth(ReviewSubmitPage, true)}/>
+          <Route exact path="/review/submit/:movieId" component={Auth(ReviewSubmitPage, true)}/>
           <Route exact path="/review" component={Auth(ReviewShowPage, true)}/>
-          <Route exact path="/review/:reviewId/:movieId" component={Auth(ReviewDetailPage, true)}/>
+          <Route exact path="/review/:reviewId" component={Auth(ReviewDetailPage, true)}/>
         </Switch>
       </div>
       <Footer />

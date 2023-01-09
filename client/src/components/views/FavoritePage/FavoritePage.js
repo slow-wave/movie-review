@@ -52,7 +52,7 @@ function FavoritePage() {
             </Popover>
             <td>{favorite.movieRunTime}</td>
             <td><Button onClick={() => onClickDelete(favorite.movieId, favorite.userFrom)}>Remove</Button></td>
-            <td><Button href={`/review/submit/${favorite.userFrom}/${favorite.movieId}`}><EditOutlined /></Button></td>
+            <td><Button href={`/review/submit/${favorite.movieId}`}><EditOutlined /></Button></td>
         </tr>
     })
 

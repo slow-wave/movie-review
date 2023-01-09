@@ -9,8 +9,8 @@ function Review(props) {
     const [bestScore, setbestScore] = useState(0)
     const [tags, setTags] = useState([]);
 
-    const userId = props.match.params.userId;
-    const movieId = props.match.params.movieId;
+    let userId = localStorage.getItem('userId')
+    let movieId = props.match.params.movieId;
 
     const onClickSubmit = (event) => {
         let variables = {
