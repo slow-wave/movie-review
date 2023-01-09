@@ -9,25 +9,25 @@ const { TextArea } = Input;
 
 function Review(props) {
     const [bestScore, setbestScore] = useState(0)
+    const [tags, setTags] = useState([]);
 
     const userId = props.match.params.userId;
     const movieId = props.match.params.movieId;
 
     const onClickSubmit = (event) => {
-        console.log(bestScore)
-
         let variables = {
             writer : userId,
             movieId,
             mainContent: document.getElementById('one-line').value,
             comment: document.getElementById('detail').value,
-            ratingTotal : bestScore
+            ratingTotal : bestScore,
+            tags: tags
         }
 
         Axios.post('/api/review/submit', variables)
             .then(response => {
                 if(response.data.success) {
-                }else {
+                } else {
                     alert('등록 실패')
                 }
             })
@@ -39,11 +39,11 @@ function Review(props) {
             <div style = {{ width: '85%', margin: '1rem auto'}}><h3>Movie Info</h3><hr /></div>
             <div style = {{ width: '85%', margin: '1rem auto'}}>
                 <h3>Star Ratings</h3>
-                <RatingPage bestscore={setbestScore}/>
+                <RatingPage setbestScore={setbestScore}/>
             <hr /></div>
             <div style = {{ width: '85%', margin: '1rem auto'}}>
                 <h3>Tags</h3>
-                <TagsPage/>
+                <TagsPage setTags={setTags} tags={tags}/>
             <hr /></div>
             <div style = {{ width: '85%', margin: '1rem auto'}}>
                 <ContentPage/>

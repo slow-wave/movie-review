@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const ratingSchema = mongoose.Schema({
-    writer: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
     reviewId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Review'    

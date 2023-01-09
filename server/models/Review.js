@@ -13,6 +13,9 @@ const reviewSchema = mongoose.Schema({
     },
     comment: {
         type: String
+    },
+    ratingTotal: {
+        type: Number
     }
 },    { timestamps: true});
 

@@ -3,11 +3,15 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Input, Tag } from 'antd';
 import { TweenOneGroup } from 'rc-tween-one';
 
-const Tags = () => {
-  const [tags, setTags] = useState(['Tag 1', 'Tag 2', 'Tag 3']);
+const Tags = (props) => {
+  // const [tags, setTags] = useState([]);
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const inputRef = useRef(null);
+
+  const tags = props.tags
+  const setTags = props.setTags
+  
   useEffect(() => {
     if (inputVisible) {
       inputRef.current?.focus();
@@ -15,7 +19,6 @@ const Tags = () => {
   }, []);
   const handleClose = (removedTag) => {
     const newTags = tags.filter((tag) => tag !== removedTag);
-    console.log(newTags);
     setTags(newTags);
   };
   const showInput = () => {

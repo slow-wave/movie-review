@@ -22,7 +22,7 @@ function Rating(props) {
 
     const sendReview = () => {
         let score = clicked.filter(Boolean).length;
-        props.bestscore(score)
+        props.setbestScore(score)
     };
 
     return (
