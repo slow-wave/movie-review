@@ -13,6 +13,7 @@ import SearchMoviePage from './views/MovieDetail/SearchMovie';
 import ReviewSubmitPage from './views/ReviewPage/ReviewSubmit';
 import ReviewShowPage from './views/ReviewPage/ReviewShow';
 import ReviewDetailPage from './views/ReviewPage/ReviewDetail'
+import ReviewEditPage from './views/ReviewPage/ReviewEdit';
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
@@ -33,6 +34,7 @@ function App() {
           <Route exact path="/review/submit/:movieId" component={Auth(ReviewSubmitPage, true)}/>
           <Route exact path="/review" component={Auth(ReviewShowPage, true)}/>
           <Route exact path="/review/:reviewId" component={Auth(ReviewDetailPage, true)}/>
+          <Route exact path="/review/edit/:reviewId" component={Auth(ReviewEditPage, true)}/>
         </Switch>
       </div>
       <Footer />
