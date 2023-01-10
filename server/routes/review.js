@@ -40,19 +40,19 @@ router.post('/getReview', (req, res) => {
     })
 })
 
-
-// router.post('/getReview', (req, res) => {
-//     Review.find(req.body)
-//         .exec((err, reviews) => {
-//             if(err) return res.status(400).send(err)
-//             return res.status(200).json({ success: true, reviews })
-//         })
-// })
 router.post('/getTag', (req, res) => {
     Tag.find(req.body)
         .exec((err, tags) => {
             if(err) return res.status(400).send(err)
             return res.status(200).json({ success: true, tags })
+        })
+})
+
+router.post('/getOneReview', (req, res) => {
+    Review.find(req.body)
+        .exec((err, review) => {
+            if(err) return res.status(400).send(err)
+            return res.status(200).json({ success: true, review })
         })
 })
 
