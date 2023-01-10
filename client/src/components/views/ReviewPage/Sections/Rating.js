@@ -7,8 +7,6 @@ import styled from 'styled-components';
 function Rating(props) {
     const [clicked, setClicked] = useState([false, false, false, false, false]);
     const ARRAY = [0, 1, 2, 3, 4];
-    // const [Score, setScore] = useState(0)
-    console.log(props.score)
 
     const handleStarClick = index => {
         let clickStates = [...clicked];
@@ -20,7 +18,6 @@ function Rating(props) {
 
     useEffect(() => {
         sendReview();
-        // setScore(props.score)
     }, [clicked]); //컨디마 컨디업
 
     const sendReview = () => {
@@ -61,27 +58,20 @@ function Rating(props) {
         <div>
             <div style = {{ width: '99%', margin: '1rem auto'}}>
                 <div className="site-card-wrapper">
-                    <Row gutter={16}>
-                        <Col span={4}>
-                            <Card title="Best Movie" bordered={false}>
-                              {props.score}
-                                <Stars>
-                                    {ARRAY.slice(0,props.score).map((el, idx) => {
-                                    return (
-                                        <FaStar
-                                            id='rating'
-                                            key={idx}
-                                            size="50"
-                                            color="#fcc419"
-                                            // onClick={() => handleStarClick(el)}
-                                            // className={clicked[el] && 'yellowStar'}
-                                        />
-                                    );
-                                    })}
-                                </Stars>
-                            </Card>
-                        </Col>
-                    </Row>
+                  <Card title="Best Movie" bordered={false}>
+                      <Stars>
+                          {ARRAY.slice(0,props.score).map((el, idx) => {
+                          return (
+                              <FaStar
+                                  id='rating'
+                                  key={idx}
+                                  size="50"
+                                  color="#fcc419"
+                              />
+                          );
+                          })}
+                      </Stars>
+                  </Card>
                 </div>
             </div>
         </div>
