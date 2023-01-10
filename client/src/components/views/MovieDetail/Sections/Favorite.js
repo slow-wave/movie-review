@@ -11,13 +11,38 @@ function Favorite(props) {
 
     const [FavoriteNumber, setFavoriteNumber] = useState(0)
     const [Favorited, setFavorited] = useState(false)
-
+    
     let variables = {
         userFrom,
         movieId,
-        movieTitle,
         moviePost,
+        movieTitle,
         movieRunTime
+    }
+
+    let datas = {
+        _id: movieId,
+        adult:props.movieInfo.adult,
+        backdrop_path: moviePost,
+        belongs_to_collection: props.movieInfo.belongs_to_collection,
+        budget: props.movieInfo.budget,
+        genres: props.movieInfo.genres,
+        original_language: movieTitle,
+        original_title: props.movieInfo.original_title,
+        overview: props.movieInfo.overview,
+        popularity: props.movieInfo.popularity,
+        poster_path: props.movieInfo.poster_path,
+        production_companies: props.movieInfo.production_companies,
+        production_countries: props.movieInfo.production_countries,
+        release_date: props.movieInfo.release_date,
+        revenue: props.movieInfo.revenue,
+        runtime: movieRunTime,
+        spoken_languages: props.movieInfo.spoken_languages,
+        status: props.movieInfo.status,
+        title: props.movieInfo.title,
+        video: props.movieInfo.video,
+        vote_average: props.movieInfo.vote_average,
+        vote_count: props.movieInfo.vote_count
     }
 
     useEffect(() => {
@@ -52,7 +77,6 @@ function Favorite(props) {
                 }
             })
         } else {
-            console.log(variables)
             Axios.post('/api/favorite/addToFavorite', variables)
             .then(response => {
                 if(response.data.success) {
@@ -62,8 +86,15 @@ function Favorite(props) {
                     alert('Favorite 추가 실패')
                 }
             })
-
+            Axios.post('/api/movie/addToMovie', datas)
+            .then(response => {
+                if(response.data.success) {
+                } else {
+                    alert('movie 정보 추가 실패')
+                }
+            })
         }
+
     }
 
     return (
