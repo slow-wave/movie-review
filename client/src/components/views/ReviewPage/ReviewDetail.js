@@ -1,13 +1,18 @@
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom';
 import { API_URL, API_KEY, IMAGE_BASE_URL } from "../../Config";
+import RatingPage from './Sections/Rating'
 import { Button, Tag } from 'antd';
-import { FaStar } from 'react-icons/fa';
 
 function ReviewDetail(props) {
     const [Review, setReview] = useState([])
+    const [bestScore, setbestScore] = useState(0)
     const [Tags, setTags] = useState([])
-
+    
+    const location = useLocation();
+    const movieId = location.state.movieId
+    
     let reviewId = props.match.params.reviewId
 
     useEffect(()=> {
@@ -16,10 +21,11 @@ function ReviewDetail(props) {
     },[])
 
     const fetchReview = () => {
-        Axios.post('/api/review/getReview', { _id: reviewId})
+        Axios.post('/api/review/getOneReview', { _id: reviewId })
         .then(response => {
             if(response.data.success) {
-                setReview(...Review, response.data.reviews[0])
+                console.log('data',response.data)
+                setReview(response.data.review[0])
             }else {
                 alert("리뷰 정보 가져오기 실패")
             }
@@ -47,15 +53,11 @@ function ReviewDetail(props) {
                 <hr /></div>
                 <div style = {{ width: '85%', margin: '1rem auto'}}>
                     <h3>Star Ratings</h3>
-                        {/* {[...Array(parseInt(Review.ratingTotal))].map((el, idx) => {
-                            return (
-                                <FaStar
-                                    id='rating'
-                                    size="50"
-                                    color="#fcc419"
-                                />
-                            );
-                        })} */}
+                    <RatingPage
+                        showRating
+                        setbestScore={setbestScore}
+                        score={Review.ratingTotal}
+                    />
                 <hr /></div>
                 <div style = {{ width: '85%', margin: '1rem auto'}}>
                     <h3>Tags</h3>

@@ -49,7 +49,7 @@ function Review(props) {
             <div style = {{ width: '85%', margin: '1rem auto'}}><h3>Movie Info</h3><hr /></div>
             <div style = {{ width: '85%', margin: '1rem auto'}}>
                 <h3>Star Ratings</h3>
-                <RatingPage setbestScore={setbestScore}/>
+                <RatingPage submitRating setbestScore={setbestScore}/>
             <hr /></div>
             <div style = {{ width: '85%', margin: '1rem auto'}}>
                 <h3>Tags</h3>

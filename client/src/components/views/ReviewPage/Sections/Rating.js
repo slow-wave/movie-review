@@ -3,11 +3,13 @@ import { Card, Col, Row } from 'antd';
 import { FaStar } from 'react-icons/fa';
 import styled from 'styled-components';
 
-const ARRAY = [0, 1, 2, 3, 4];
 
 function Rating(props) {
     const [clicked, setClicked] = useState([false, false, false, false, false]);
-    
+    const ARRAY = [0, 1, 2, 3, 4];
+    // const [Score, setScore] = useState(0)
+    console.log(props.score)
+
     const handleStarClick = index => {
         let clickStates = [...clicked];
         for (let i = 0; i < 5; i++) {
@@ -18,6 +20,7 @@ function Rating(props) {
 
     useEffect(() => {
         sendReview();
+        // setScore(props.score)
     }, [clicked]); //컨디마 컨디업
 
     const sendReview = () => {
@@ -25,22 +28,53 @@ function Rating(props) {
         props.setbestScore(score)
     };
 
-    return (
+    if (props.submitRating) {
+      return (
+          <div>
+              <div style = {{ width: '99%', margin: '1rem auto'}}>
+                  <div className="site-card-wrapper">
+                      <Row gutter={16}>
+                          <Col span={4}>
+                              <Card title="Best Movie" bordered={false}>
+                                  <Stars>
+                                      {ARRAY.map((el, idx) => {
+                                      return (
+                                          <FaStar
+                                              id='rating'
+                                              key={idx}
+                                              size="50"
+                                              onClick={() => handleStarClick(el)}
+                                              className={clicked[el] && 'yellowStar'}
+                                          />
+                                      );
+                                      })}
+                                  </Stars>
+                              </Card>
+                          </Col>
+                      </Row>
+                  </div>
+              </div>
+          </div>
+      )
+  } else {
+      return (
         <div>
             <div style = {{ width: '99%', margin: '1rem auto'}}>
                 <div className="site-card-wrapper">
                     <Row gutter={16}>
                         <Col span={4}>
                             <Card title="Best Movie" bordered={false}>
+                              {props.score}
                                 <Stars>
-                                    {ARRAY.map((el, idx) => {
+                                    {ARRAY.slice(0,props.score).map((el, idx) => {
                                     return (
                                         <FaStar
                                             id='rating'
                                             key={idx}
                                             size="50"
-                                            onClick={() => handleStarClick(el)}
-                                            className={clicked[el] && 'yellowStar'}
+                                            color="#fcc419"
+                                            // onClick={() => handleStarClick(el)}
+                                            // className={clicked[el] && 'yellowStar'}
                                         />
                                     );
                                     })}
@@ -51,7 +85,8 @@ function Rating(props) {
                 </div>
             </div>
         </div>
-    )
+      )
+    }
 }
 
 export default Rating

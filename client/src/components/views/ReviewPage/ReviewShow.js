@@ -1,12 +1,11 @@
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { API_URL, API_KEY, IMAGE_BASE_URL } from "../../Config";
+import { IMAGE_BASE_URL } from "../../Config";
 import GridCards from '../commons/GridCards';
 import { Row } from 'antd';
 
 function ReviewShow() {
     const [Reviews, setReviews] = useState([])
-    const [Movies, setMovies] = useState([])
 
     useEffect(()=> {
         fetchReview()
