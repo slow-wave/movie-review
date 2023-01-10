@@ -8,13 +8,15 @@ function ReviewDetail(props) {
     const [Review, setReview] = useState([])
     const [Tags, setTags] = useState([])
 
+    let reviewId = props.match.params.reviewId
+
     useEffect(()=> {
         fetchReview()
         fetchTag()
     },[])
 
     const fetchReview = () => {
-        Axios.post('/api/review/getReview', { _id: props.match.params.reviewId})
+        Axios.post('/api/review/getReview', { _id: reviewId})
         .then(response => {
             if(response.data.success) {
                 setReview(...Review, response.data.reviews[0])
@@ -25,7 +27,7 @@ function ReviewDetail(props) {
     }
 
     const fetchTag = () => {
-        Axios.post('/api/review/getTag', { reviewId: props.match.params.reviewId})
+        Axios.post('/api/review/getTag', { reviewId: reviewId})
         .then(response => {
             if(response.data.success) {
                 setTags(response.data.tags)
@@ -45,7 +47,7 @@ function ReviewDetail(props) {
                 <hr /></div>
                 <div style = {{ width: '85%', margin: '1rem auto'}}>
                     <h3>Star Ratings</h3>
-                        {[...Array(parseInt(Review.ratingTotal))].map((el, idx) => {
+                        {/* {[...Array(parseInt(Review.ratingTotal))].map((el, idx) => {
                             return (
                                 <FaStar
                                     id='rating'
@@ -53,7 +55,7 @@ function ReviewDetail(props) {
                                     color="#fcc419"
                                 />
                             );
-                        })}
+                        })} */}
                 <hr /></div>
                 <div style = {{ width: '85%', margin: '1rem auto'}}>
                     <h3>Tags</h3>

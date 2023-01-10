@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Favorite } = require('../models/Favorite');
+const { Review } = require('../models/Review');
 
 router.post('/favoriteNumber', (req,res) => {
     // 몽고DB에서 favorite 숫자 가져오기
@@ -41,6 +42,42 @@ router.post('/removeFromFavorite', (req, res) => {
             return res.status(200).json({ success: true, doc })
         })
 })
+
+router.post('/getFavoredMovie', (req, res) => {
+    Favorite.aggregate([
+        {$lookup:
+            {
+                from: 'reviews',
+                localField: 'movieId',
+                foreignField: 'movieId',
+                as: 'detailed'
+            },
+        }
+    ])
+    .exec((err, favorites) => {
+        if (err) throw err;
+        return res.status(200).json({ success: true, favorites })
+    });
+})
+
+// MongoClient.connect(url, function(err, db) {
+//     if (err) throw err;
+//     var dbo = db.db("mydb");
+//     dbo.collection('orders').aggregate([
+//       { $lookup:
+//          {
+//            from: 'products',
+//            localField: 'product_id',
+//            foreignField: '_id',
+//            as: 'orderdetails'
+//          }
+//        }
+//       ]).toArray(function(err, res) {
+//       if (err) throw err;
+//       console.log(JSON.stringify(res));
+//       db.close();
+//     });
+//   }); 
 
 router.post('/getFavoredMovie', (req, res) => {
     Favorite.find({'userFrom': req.body.userFrom})

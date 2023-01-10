@@ -6,16 +6,18 @@ import { Popover, Button } from 'antd'
 import { EditOutlined } from '@ant-design/icons';
 
 function FavoritePage() {
-    const [Favorites, setFavorites] = useState([])
+    const [Favorites, setFavorites] = useState([]);
 
     useEffect(()=> {
         fetchFavoredMovie()
+        // checkReview()
     },[])
 
     const fetchFavoredMovie = () => {
         Axios.post('/api/favorite/getFavoredMovie', { userFrom: localStorage.getItem('userId')})
         .then(response => {
             if(response.data.success) {
+                console.log(response.data.favorites[0].detailed)
                 setFavorites(response.data.favorites)
             }else {
                 alert("영화 정보 가져오기 실패")
@@ -52,7 +54,16 @@ function FavoritePage() {
             </Popover>
             <td>{favorite.movieRunTime}</td>
             <td><Button onClick={() => onClickDelete(favorite.movieId, favorite.userFrom)}>Remove</Button></td>
-            <td><Button href={`/review/submit/${favorite.movieId}`}><EditOutlined /></Button></td>
+            <td>
+                {/* 작성된 리뷰가 없다면 '리뷰 버튼' 활성화 */}
+                {(favorite.detailed.length == 0 &&
+                    <Button href={`/review/submit/${favorite.movieId}`}>새로 작성<EditOutlined /></Button>
+                )} 
+                {/* 작성된 리뷰가 있다면 '수정 버튼' 활성화 */}
+                {(favorite.detailed.length != 0 &&
+                    <Button>등록 완료</Button>
+                )}
+            </td>
         </tr>
     })
 

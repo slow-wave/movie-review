@@ -25,10 +25,22 @@ function Review(props) {
         Axios.post('/api/review/submit', variables)
             .then(response => {
                 if(response.data.success) {
+                    alert('리뷰를 등록했습니다!')
                 } else {
                     alert('등록 실패')
                 }
             })
+
+        Axios.post('/api/review/getReview', { writer: localStorage.getItem('userId'), movieId: movieId})
+            .then(response => {
+                if(response.data.success) {
+                    var link = `/review/${response.data.reviews[0]._id}`;
+                    window.location.href=link;
+                }else {
+                    alert("리뷰 정보 가져오기 실패")
+                }
+            })
+
     }
     
     return (
