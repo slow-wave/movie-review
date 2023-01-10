@@ -24,13 +24,30 @@ router.post('/submit', (req, res) => {
 })
 
 router.post('/getReview', (req, res) => {
-    Review.find(req.body)
-        .exec((err, reviews) => {
-            if(err) return res.status(400).send(err)
-            return res.status(200).json({ success: true, reviews })
-        })
+    Review.aggregate([
+        {$lookup:
+            {
+                from: 'movies',
+                localField: 'movieId',
+                foreignField: '_id',
+                as: 'detailed'
+            },
+        }
+    ])
+    .exec((err, reviews) => {
+        if(err) return res.status(400).send(err)
+        return res.status(200).json({ success: true, reviews })
+    })
 })
 
+
+// router.post('/getReview', (req, res) => {
+//     Review.find(req.body)
+//         .exec((err, reviews) => {
+//             if(err) return res.status(400).send(err)
+//             return res.status(200).json({ success: true, reviews })
+//         })
+// })
 router.post('/getTag', (req, res) => {
     Tag.find(req.body)
         .exec((err, tags) => {

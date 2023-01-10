@@ -10,7 +10,6 @@ function ReviewShow() {
 
     useEffect(()=> {
         fetchReview()
-        getMoviesInfo(Reviews)
     },[])
 
     const fetchReview = () => {
@@ -24,30 +23,8 @@ function ReviewShow() {
         })
     }
 
-    const fetchMovies = (endpoint) => {
-        fetch(endpoint)
-            .then(response => response.json())
-            .then(response => {
-                setMovies([...Movies, response])
-            })
-    }
-
-    const getMoviesInfo = (data) => {
-        data.map(review => {
-            const endpointInfo = `${API_URL}movie/${review.movieId}?api_key=${API_KEY}`
-            fetchMovies(endpointInfo)
-        });
-    }
-
     return (
         <div>
-            <div>ReviewShow</div>
-            {/* <p>{Movies[0].original_title}</p> */}
-            {Movies && Movies.map((movie, index) => (
-                <React.Fragment key={index}>
-                <p>{movie.original_title}</p>
-                </React.Fragment>
-            ))}
             {/* Review Grid Cards */}
             <Row gutter={[16, 16]}>
 
@@ -56,10 +33,10 @@ function ReviewShow() {
                     <GridCards
                         reviewPage
                         reviewId = {review._id}
-                        // image = {movie.poster_path ?
-                        //     `${IMAGE_BASE_URL}w500${movie.poster_path}` : null}
+                        image = {review.detailed[0].poster_path ?
+                            `${IMAGE_BASE_URL}w500${review.detailed[0].poster_path}` : null}
                         movieId={review.movieId}
-                        // movieName={Movies[index].original_title}
+                        movieName={review.detailed[0].original_title}
                     />
                 </React.Fragment>
             ))}
