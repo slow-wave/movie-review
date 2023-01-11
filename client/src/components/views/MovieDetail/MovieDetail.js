@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Axios from 'axios'
 import { API_URL, API_KEY, IMAGE_BASE_URL } from '../../Config'
 import MainImage from '../LandingPage/Sections/MainImage'
 import MovieInfo from './Sections/MovieInfo'
@@ -7,7 +8,6 @@ import Favorite from './Sections/Favorite'
 import Comment from './Sections/Comment'
 import LikeDislikes from './Sections/LikeDislikes'
 import { Row, Button } from 'antd';
-import Axios from 'axios'
 
 function MovieDetail(props) {
     let movieId = props.match.params.movieId
@@ -66,7 +66,7 @@ function MovieDetail(props) {
             {/* Body */}
             <div style={{ width: '85%', margin: '1rem auto'}}>
                 {/* Favorite button */}
-                <div style = {{ display: 'flex', justfyContent: 'flex-end' }}>
+                <div style = {{ display: 'flex', justifyContent: 'flex-end' }}>
                     <Favorite movieInfo={Movie} movieId={movieId} userFrom={userFrom}/>
                 </div>
                 {/* Movie Info */}

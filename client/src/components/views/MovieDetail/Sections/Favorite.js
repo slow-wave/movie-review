@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
-import { Button } from 'antd'
+import { Button, Descriptions } from 'antd'
+import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 
 function Favorite(props) {
     const movieId= props.movieId
@@ -99,7 +100,7 @@ function Favorite(props) {
 
     return (
         <div>
-            <Button onClick={onClickFavorite}>{Favorited ? "Not Favorite" : "Add to Favorite"} { FavoriteNumber } </Button>
+            <Button onClick={onClickFavorite} type="dashed" block>{Favorited ? <HeartFilled style={{color:"#eb2f96", fontSize:"20px"}}/> : <HeartOutlined style={{color:"#eb2f96", fontSize:"20px"}}/>} { FavoriteNumber } </Button>
         </div>
     )
 }
