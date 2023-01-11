@@ -5,7 +5,7 @@ import GridCards from '../commons/GridCards';
 import { Row } from 'antd';
 
 function ReviewShow() {
-    const [Reviews, setReviews] = useState([])
+    const [Reviews, setReviews] = useState([])    
 
     useEffect(()=> {
         fetchReview()
@@ -23,7 +23,8 @@ function ReviewShow() {
     }
 
     return (
-        <div>
+        <div style={{width: '90%', margin:'1rem auto'}}>
+            <h2>작성한 리뷰</h2><hr />
             {/* Review Grid Cards */}
             <Row gutter={[16, 16]}>
 
@@ -31,8 +32,9 @@ function ReviewShow() {
                 <React.Fragment key={index}>
                     <GridCards
                         reviewPage
-                        reviewId = {review._id}
-                        image = {review.detailed[0].poster_path ?
+                        reviewId= {review._id}
+                        posterPath= {review.detailed[0].poster_path}
+                        image= {review.detailed[0].poster_path ?
                             `${IMAGE_BASE_URL}w500${review.detailed[0].poster_path}` : null}
                         movieId={review.movieId}
                         movieName={review.detailed[0].original_title}

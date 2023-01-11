@@ -4,16 +4,14 @@ import { useLocation } from 'react-router-dom';
 import TagsPage from './Sections/Tags'
 import RatingPage from './Sections/Rating'
 import ContentPage from './Sections/Content'
-import SimpleMovieInfoPage from './Sections/SimpleMovieInfo';
-import { Button, Typography } from 'antd';
+import { Button } from 'antd';
 
-const { Text } = Typography;
 
-function Review(props) {
+function ReviewEdit(props) {
     const [bestScore, setbestScore] = useState(0)
     const [tags, setTags] = useState([]);
     const location = useLocation();
-
+    console.log(location)
     let userId = localStorage.getItem('userId')
     let movieId = props.match.params.movieId;
 
@@ -49,34 +47,27 @@ function Review(props) {
     }
     
     return (
-        <div style= {{ width: '85%', margin: '1rem auto'}}>
-            <h2>Review</h2><hr />
-            <div style= {{ width: '85%', margin: '1rem auto', display:'flex'}}>
-                <div style= {{ width: '85%', margin: '1rem auto',flex:'1'}}>
-                    <h3><Text mark>Movie Info</Text></h3>
-                    <SimpleMovieInfoPage movieId={movieId} image={location.state.movieInfo.poster_path} alt={location.state.movieInfo.original_title}/>
-                </div>
-                <div style={{flex:'1'}}>
-                    <div style= {{ width: '85%', margin: '1rem auto'}}>
-                        <h3><Text mark>Star Ratings</Text></h3>
-                        <RatingPage submitRating setbestScore={setbestScore}/>
-                    </div>
-                    <div style= {{ width: '85%', margin: '1rem auto'}}>
-                        <h3><Text mark>Tags</Text></h3>
-                        <TagsPage setTags={setTags} tags={tags}/>
-                    </div>
-                </div>
-            </div>
-            <div style= {{ width: '85%', margin: '1rem auto'}}>
-                <h3><Text mark>Review</Text></h3>
+        <div style = {{ width: '100%', margin: '0'}}>
+            <div style = {{ width: '85%', margin: '1rem auto'}}><h2>Review</h2><hr /></div>
+            <div style = {{ width: '85%', margin: '1rem auto'}}><h3>Movie Info</h3><hr /></div>
+            <div style = {{ width: '85%', margin: '1rem auto'}}>
+                <h3>Star Ratings</h3>
+                <RatingPage submitRating setbestScore={setbestScore}/>
+            <hr /></div>
+            <div style = {{ width: '85%', margin: '1rem auto'}}>
+                <h3>Tags</h3>
+                <TagsPage setTags={setTags} tags={tags}/>
+            <hr /></div>
+            <div style = {{ width: '85%', margin: '1rem auto'}}>
+                <h3>Review</h3>
                 <ContentPage/>
             </div>
             <div style = {{ width: '85%', margin: '1rem auto'}}>
-                    <Button onClick={onClickSubmit}>submit!</Button>
+                <Button onClick={onClickSubmit}>submit!</Button>
             </div>
         </div>
     )
 }
 
 
-export default Review
+export default ReviewEdit
