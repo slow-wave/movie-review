@@ -23,6 +23,16 @@ router.post('/submit', (req, res) => {
     })
 })
 
+router.post('/edit', (req, res) => {
+    var currentVal = {_id: req.body._id};
+    var newVal = { $set: req.body };
+    Review.updateOne(currentVal, newVal)
+        .exec((err, result) => {
+            if(err) return res.status(400).send(err)
+            return res.status(200).json({ success: true, result})
+        })
+})
+
 router.post('/getReview', (req, res) => {
     Review.aggregate([
         {$lookup:
@@ -40,6 +50,14 @@ router.post('/getReview', (req, res) => {
     })
 })
 
+router.post('/getOneReview', (req, res) => {
+    Review.find(req.body)
+        .exec((err, review) => {
+            if(err) return res.status(400).send(err)
+            return res.status(200).json({ success: true, review })
+        })
+})
+
 router.post('/getTag', (req, res) => {
     Tag.find(req.body)
         .exec((err, tags) => {
@@ -48,12 +66,6 @@ router.post('/getTag', (req, res) => {
         })
 })
 
-router.post('/getOneReview', (req, res) => {
-    Review.find(req.body)
-        .exec((err, review) => {
-            if(err) return res.status(400).send(err)
-            return res.status(200).json({ success: true, review })
-        })
-})
+
 
 module.exports = router;
