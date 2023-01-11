@@ -17,12 +17,9 @@ function GridCards(props) {
         return (
             <Col lg={6} md={8} xs={24}>
                 <div style = {{ position: 'relative'}}>
-                    <Link to={{pathname: `/review/${props.reviewId}`, state:{ movieId: props.movieId }}}> 
+                    <Link to={{pathname: `/review/${props.reviewId}`, state:{ image: props.posterPath, movieName: props.movieName, reviewId: props.reviewId}}}> 
                         <img style={{ width:'100%',height:'320px'}} src={props.image} alt={props.movieName}/>
                     </Link>
-                    {/* <a href={`/review/${props.reviewId}`}>
-                        <img style={{ width:'100%',height:'320px'}} src={props.image} alt={props.movieName}/>
-                    </a> */}
                 </div>
         </Col>
         )
