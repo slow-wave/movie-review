@@ -26,6 +26,7 @@ function ReviewDetail(props) {
         Axios.post('/api/review/getOneReview', { _id: reviewId })
         .then(response => {
             if(response.data.success) {
+                console.log(response.data.review)
                 setReview(response.data.review[0])
             }else {
                 alert("리뷰 정보 가져오기 실패")
@@ -55,11 +56,11 @@ function ReviewDetail(props) {
                     <div style={{flex:'1'}}>
                         <div style = {{ width: '85%', margin: '1rem auto'}}>
                             <h3><Text mark>Star Ratings</Text></h3>
-                            <RatingPage
+                            {Review.ratingTotal ? <RatingPage
                                 showRating
                                 setbestScore={setbestScore}
                                 score={Review.ratingTotal}
-                            />
+                            /> : <></>}
                         </div>
                         <div style = {{ width: '85%', margin: '1rem auto'}}>
                             <h3><Text mark>Tags</Text></h3>
@@ -82,7 +83,7 @@ function ReviewDetail(props) {
                 </Space>
             </div>
             <div style = {{ width: '85%', margin: '1rem auto'}}>
-                <Link to={{pathname: `/review/edit/${reviewId}`, state:{ review: Review }}}> 
+                <Link to={{pathname: `/review/edit/${reviewId}`, state:{ review: Review,tags:Tags, image:image, alt:movieName, movieId: Review.movieId}}}> 
                     <Button>수정</Button>
                 </Link>
             </div>

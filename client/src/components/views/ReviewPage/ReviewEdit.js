@@ -1,69 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
+
 import TagsPage from './Sections/Tags'
 import RatingPage from './Sections/Rating'
 import ContentPage from './Sections/Content'
-import { Button } from 'antd';
+import SimpleMovieInfoPage from './Sections/SimpleMovieInfo';
+import { Button, Typography } from 'antd';
 
+const { Text } = Typography;
 
 function ReviewEdit(props) {
     const [bestScore, setbestScore] = useState(0)
     const [tags, setTags] = useState([]);
-    const location = useLocation();
-    console.log(location)
-    let userId = localStorage.getItem('userId')
-    let movieId = props.match.params.movieId;
 
-    const onClickSubmit = (event) => {
+    const data = useLocation().state
+    let tagList = []
+    data.tags.map((el, idx) => {
+        tagList.push(el.tagName)
+    })
+
+
+    const onClickEdit = (event) => {
         let variables = {
-            writer : userId,
-            movieId,
-            mainContent: document.getElementById('one-line').value,
-            comment: document.getElementById('detail').value,
+            _id: data.review._id,
+            mainContent: document.getElementById('detail').value,
+            comment: document.getElementById('one-line').value,
             ratingTotal : bestScore,
             tags: tags
         }
 
-        Axios.post('/api/review/submit', variables)
+        Axios.post('/api/review/edit', variables)
             .then(response => {
                 if(response.data.success) {
-                    alert('리뷰를 등록했습니다!')
+                    alert('리뷰를 수정했습니다!')
                 } else {
-                    alert('등록 실패')
+                    alert('수정 실패')
                 }
             })
-
-        Axios.post('/api/review/getReview', { writer: localStorage.getItem('userId'), movieId: movieId})
-            .then(response => {
-                if(response.data.success) {
-                    var link = `/review/${response.data.reviews[0]._id}`;
-                    window.location.href=link;
-                }else {
-                    alert("리뷰 정보 가져오기 실패")
-                }
-            })
-
     }
-    
+
     return (
-        <div style = {{ width: '100%', margin: '0'}}>
-            <div style = {{ width: '85%', margin: '1rem auto'}}><h2>Review</h2><hr /></div>
-            <div style = {{ width: '85%', margin: '1rem auto'}}><h3>Movie Info</h3><hr /></div>
-            <div style = {{ width: '85%', margin: '1rem auto'}}>
-                <h3>Star Ratings</h3>
-                <RatingPage submitRating setbestScore={setbestScore}/>
-            <hr /></div>
-            <div style = {{ width: '85%', margin: '1rem auto'}}>
-                <h3>Tags</h3>
-                <TagsPage setTags={setTags} tags={tags}/>
-            <hr /></div>
-            <div style = {{ width: '85%', margin: '1rem auto'}}>
-                <h3>Review</h3>
-                <ContentPage/>
+        <div style= {{ width: '85%', margin: '1rem auto'}}>
+            <h2>Review</h2><hr />
+            <div style= {{ width: '85%', margin: '1rem auto', display:'flex'}}>
+                <div style= {{ width: '85%', margin: '1rem auto',flex:'1'}}>
+                    <h3><Text mark>Movie Info</Text></h3>
+                    <SimpleMovieInfoPage movieId={data.movieId} image={data.image} alt={data.alt}/>
+                </div>
+                <div style={{flex:'1'}}>
+                    <div style= {{ width: '85%', margin: '1rem auto'}}>
+                        <h3><Text mark>Star Ratings</Text></h3>
+                        {data.review.ratingTotal ? <RatingPage
+                                editRating
+                                setbestScore={setbestScore}
+                                score={data.review.ratingTotal}
+                            /> : <></>}
+                    </div>
+                    <div style= {{ width: '85%', margin: '1rem auto'}}>
+                        <h3><Text mark>Tags</Text></h3>
+                        <TagsPage setTags={setTags} tags={tags} data={tagList}/>
+                    </div>
+                </div>
+            </div>
+            <div style= {{ width: '85%', margin: '1rem auto'}}>
+                <h3><Text mark>Review</Text></h3>
+                <ContentPage editReview comment={data.review.comment} mainContent={data.review.mainContent}/>
             </div>
             <div style = {{ width: '85%', margin: '1rem auto'}}>
-                <Button onClick={onClickSubmit}>submit!</Button>
+                <Link to={{pathname: `/review/${data.review._id}`, state:{ image: data.image, movieName: data.alt}}}>
+                    <Button onClick={onClickEdit}>Edit!</Button>
+                </Link>
             </div>
         </div>
     )

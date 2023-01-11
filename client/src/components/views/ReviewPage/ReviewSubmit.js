@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link, useHistory } from 'react-router-dom';
 import TagsPage from './Sections/Tags'
 import RatingPage from './Sections/Rating'
 import ContentPage from './Sections/Content'
@@ -12,22 +12,22 @@ const { Text } = Typography;
 function Review(props) {
     const [bestScore, setbestScore] = useState(0)
     const [tags, setTags] = useState([]);
-    const location = useLocation();
-
+    const data = useLocation().state;
+    let history = useHistory();
     let userId = localStorage.getItem('userId')
     let movieId = props.match.params.movieId;
 
-    const onClickSubmit = (event) => {
+    const onClickSubmit = async (event) => {
         let variables = {
             writer : userId,
             movieId,
-            mainContent: document.getElementById('one-line').value,
-            comment: document.getElementById('detail').value,
+            mainContent: document.getElementById('detail').value,
+            comment: document.getElementById('one-line').value,
             ratingTotal : bestScore,
             tags: tags
         }
 
-        Axios.post('/api/review/submit', variables)
+        await Axios.post('/api/review/submit', variables)
             .then(response => {
                 if(response.data.success) {
                     alert('리뷰를 등록했습니다!')
@@ -36,11 +36,15 @@ function Review(props) {
                 }
             })
 
-        Axios.post('/api/review/getReview', { writer: localStorage.getItem('userId'), movieId: movieId})
+        await Axios.post('/api/review/getOneReview', { writer: localStorage.getItem('userId'), movieId: movieId})
             .then(response => {
                 if(response.data.success) {
-                    var link = `/review/${response.data.reviews[0]._id}`;
-                    window.location.href=link;
+                    console.log(response.data)
+                    // setReviewId(response.data.reviews[0]._id)
+                    history.push({
+                        pathname: `/review/${response.data.review[0]._id}`,
+                        state:{ image: data.movieInfo.poster_path, movieName: data.movieInfo.original_title}
+                      })
                 }else {
                     alert("리뷰 정보 가져오기 실패")
                 }
@@ -54,7 +58,7 @@ function Review(props) {
             <div style= {{ width: '85%', margin: '1rem auto', display:'flex'}}>
                 <div style= {{ width: '85%', margin: '1rem auto',flex:'1'}}>
                     <h3><Text mark>Movie Info</Text></h3>
-                    <SimpleMovieInfoPage movieId={movieId} image={location.state.movieInfo.poster_path} alt={location.state.movieInfo.original_title}/>
+                    <SimpleMovieInfoPage movieId={movieId} image={data.movieInfo.poster_path} alt={data.movieInfo.original_title}/>
                 </div>
                 <div style={{flex:'1'}}>
                     <div style= {{ width: '85%', margin: '1rem auto'}}>
@@ -72,7 +76,7 @@ function Review(props) {
                 <ContentPage/>
             </div>
             <div style = {{ width: '85%', margin: '1rem auto'}}>
-                    <Button onClick={onClickSubmit}>submit!</Button>
+                <Button onClick={onClickSubmit}>submit!</Button>
             </div>
         </div>
     )

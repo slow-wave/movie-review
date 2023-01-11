@@ -4,7 +4,6 @@ import { Input, Tag } from 'antd';
 import { TweenOneGroup } from 'rc-tween-one';
 
 const Tags = (props) => {
-  // const [tags, setTags] = useState([]);
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const inputRef = useRef(null);
@@ -13,6 +12,9 @@ const Tags = (props) => {
   const setTags = props.setTags
   
   useEffect(() => {
+    if (props.data) {
+      setTags(props.data)
+    }
     if (inputVisible) {
       inputRef.current?.focus();
     }
