@@ -3,7 +3,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL } from "../../Config";
 import MainImage from './Sections/MainImage';
 import GridCards from '../commons/GridCards';
 import { Row, Button } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, PlusCircleTwoTone } from '@ant-design/icons';
 
 function LandingPage() {
     const [Movies, setMovies] = useState([])
@@ -40,7 +40,7 @@ function LandingPage() {
             }
             {/* Search Feature */}
             <div style = {{ width: '85%', margin: '1rem auto', display:'flex', justifyContent:'flex-end'}}>
-                <Button type="primary" href="/search" icon={<SearchOutlined />}>Search</Button>
+                <Button href="/search" style={{width:'10%', backgroundColor:"#52c41a", color:"#F8F8FF"}} icon={<SearchOutlined/>}>Search</Button>
             </div>
 
             <div style = {{ width: '85%', margin: '1rem auto'}}>
@@ -61,12 +61,11 @@ function LandingPage() {
                         </React.Fragment>
                     ))}
                 </Row>
-                <div style= {{ display: 'flex', justfycontent: 'center'}}>
-                    <Button onClick={loadMoreItems}> Load More</Button>
+                <div style= {{ display: 'flex', justifyContent: 'center', margin:"1rem auto"}}>
+                    <PlusCircleTwoTone onClick={loadMoreItems} twoToneColor="#52c41a" style={{ fontSize: '50px'}}/>
                 </div>
             </div>
         </div>
-
     )
 }
 

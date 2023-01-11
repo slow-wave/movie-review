@@ -7,6 +7,7 @@ import { USER_SERVER } from '../../../Config';
 import { withRouter } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { LoginOutlined, LogoutOutlined, StarOutlined, UserAddOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 
 function RightMenu(props) {
   const user = useSelector(state => state.user)
@@ -23,7 +24,11 @@ function RightMenu(props) {
   
   const logout = [
     {
-      label: <a href="/">Home</a>,
+      label: <a href="/">Home</a>
+    },
+    {
+      label: <a href="/search">Search</a>,
+      icon: <SearchOutlined/>
     },
     {
       label: <a href="/login">Signin</a>,
@@ -41,7 +46,11 @@ function RightMenu(props) {
       label: <a href="/">Home</a>,
     },
     {
-      label: <a href="/favorite">Favorite</a>,
+      label: <a href="/search">Search</a>,
+      icon: <SearchOutlined/>
+    },
+    {
+      label: <a href="/favorite">Favorites</a>,
       icon: <StarOutlined/>
     },
     {
