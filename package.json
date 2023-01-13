@@ -29,7 +29,8 @@
     "nodemon": "^2.0.20"
   },
   "scripts": {
-    "start" : "nodemon server/app.js",
-    "dev": "concurrently \"npm run start\" \"npm run start --prefix client\""
-}
+    "start": "nodemon server/app.js",
+    "dev": "concurrently \"npm run start\" \"npm run start --prefix client\"",
+    "build-client": "cd ./client && npm run build"
+  }
 }
