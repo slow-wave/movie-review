@@ -1,26 +1,26 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { PlusOutlined } from '@ant-design/icons';
-import { Input, Tag } from 'antd';
-import { TweenOneGroup } from 'rc-tween-one';
+import React, { useEffect, useRef, useState } from "react";
+import { PlusOutlined } from "@ant-design/icons";
+import { Input, Tag } from "antd";
+import { TweenOneGroup } from "rc-tween-one";
 
 const Tags = (props) => {
   const [inputVisible, setInputVisible] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const inputRef = useRef(null);
 
-  const tags = props.tags
-  const setTags = props.setTags
-  
+  const tags = props.tags;
+  const setTags = props.setTags;
+
   useEffect(() => {
     if (props.data) {
-      setTags(props.data)
+      setTags(props.data);
     }
     if (inputVisible) {
       inputRef.current?.focus();
     }
   }, []);
   const handleClose = (removedTag) => {
-    const newTags = tags.filter((tag) => tag !== removedTag);
+    const newTags = Tags.filter((tag) => tag !== removedTag);
     setTags(newTags);
   };
   const showInput = () => {
@@ -34,7 +34,7 @@ const Tags = (props) => {
       setTags([...tags, inputValue]);
     }
     setInputVisible(false);
-    setInputValue('');
+    setInputValue("");
   };
   const forMap = (tag) => {
     const tagElem = (
@@ -52,7 +52,7 @@ const Tags = (props) => {
       <span
         key={tag}
         style={{
-          display: 'inline-block',
+          display: "inline-block",
         }}
       >
         {tagElem}
@@ -71,12 +71,12 @@ const Tags = (props) => {
           enter={{
             scale: 0.8,
             opacity: 0,
-            type: 'from',
+            type: "from",
             duration: 100,
           }}
           onEnd={(e) => {
-            if (e.type === 'appear' || e.type === 'enter') {
-              e.target.style = 'display: inline-block';
+            if (e.type === "appear" || e.type === "enter") {
+              e.target.style = "display: inline-block";
             }
           }}
           leave={{
