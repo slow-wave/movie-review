@@ -1,15 +1,17 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const tagSchema = mongoose.Schema({
-    reviewId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Review'    
+const tagSchema = mongoose.Schema(
+  {
+    _id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Review",
     },
-    tagName: {
-        type: String
-    }
-},    { timestamps: true});
+    tagArray: {
+      type: Array,
+    },
+  },
+  { timestamps: true }
+);
 
-const Tag = mongoose.model('Tag', tagSchema);
-
-module.exports = { Tag }
+const Tag = mongoose.model("Tag", tagSchema);
+module.exports = { Tag };
