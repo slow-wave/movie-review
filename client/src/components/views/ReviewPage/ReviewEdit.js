@@ -15,6 +15,8 @@ function ReviewEdit() {
   const [tags, setTags] = useState([]);
   const data = useLocation().state;
   let history = useHistory();
+  let userId = localStorage.getItem("userId");
+  let userNickname = localStorage.getItem("nickname");
 
   const onClickEdit = (event) => {
     let variables = {
@@ -29,10 +31,10 @@ function ReviewEdit() {
       if (response.data.success) {
         alert("리뷰를 수정했습니다!");
         history.push({
-          pathname: `/review/${data.review._id}`,
+          pathname: `/review/${userNickname}/${data.review._id}`,
           state: {
-            image: data.movieInfo.poster_path,
-            movieName: data.movieInfo.original_title,
+            image: data.image,
+            movieName: data.alt,
           },
         });
       } else {
@@ -92,7 +94,7 @@ function ReviewEdit() {
       <div style={{ width: "85%", margin: "1rem auto" }}>
         <Link
           to={{
-            pathname: `/review/${data.review._id}`,
+            pathname: `/review/${userNickname}/${data.review._id}`,
             state: { image: data.image, movieName: data.alt },
           }}
         >

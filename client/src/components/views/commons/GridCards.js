@@ -23,7 +23,7 @@ function GridCards(props) {
         <div style={{ position: "relative" }}>
           <Link
             to={{
-              pathname: `/review/${props.reviewId}`,
+              pathname: `/review/${props.nickname}/${props.reviewId}`,
               state: {
                 image: props.posterPath,
                 movieName: props.movieName,

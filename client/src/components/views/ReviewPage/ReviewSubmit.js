@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Axios from "axios";
-import { useLocation, Link, useHistory } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import TagsPage from "./Sections/Tags";
 import RatingPage from "./Sections/Rating";
 import ContentPage from "./Sections/Content";
@@ -15,6 +15,7 @@ function Review(props) {
   const data = useLocation().state;
   let history = useHistory();
   let userId = localStorage.getItem("userId");
+  let userNickname = localStorage.getItem("nickname");
   let movieId = props.match.params.movieId;
 
   const onClickSubmit = async (event) => {
@@ -40,9 +41,8 @@ function Review(props) {
       movieId: movieId,
     }).then((response) => {
       if (response.data.success) {
-        // setReviewId(response.data.reviews[0]._id)
         history.push({
-          pathname: `/review/${response.data.review[0]._id}`,
+          pathname: `/review/${userNickname}/${response.data.review[0]._id}`,
           state: {
             image: data.movieInfo.poster_path,
             movieName: data.movieInfo.original_title,

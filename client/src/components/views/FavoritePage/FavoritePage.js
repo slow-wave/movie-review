@@ -12,13 +12,16 @@ import {
 
 function FavoritePage() {
   const [Favorites, setFavorites] = useState([]);
+  let userId = localStorage.getItem("userId");
+  let userNickname = localStorage.getItem("nickname");
+
   useEffect(() => {
     fetchFavoredMovie();
   }, []);
 
   const fetchFavoredMovie = () => {
     Axios.post("/api/favorite/getFavoredMovie", {
-      userFrom: localStorage.getItem("userId"),
+      userFrom: userId,
     }).then((response) => {
       if (response.data.success) {
         setFavorites(response.data.favorites);
@@ -64,7 +67,7 @@ function FavoritePage() {
         </Popover>
         <td>
           {/* 작성된 리뷰가 없다면 '새로 작성' 활성화 */}
-          {favorite.detailed.length == 0 && (
+          {favorite.detailed.length === 0 && (
             <Link
               to={{
                 pathname: `/review/submit/${favorite.movieId}`,
@@ -81,7 +84,7 @@ function FavoritePage() {
           {favorite.detailed.length !== 0 && (
             <Link
               to={{
-                pathname: `/review/${favorite.detailed[0]._id}`,
+                pathname: `/review/${userNickname}/${favorite.detailed[0]._id}`,
                 state: {
                   image: `${IMAGE_BASE_URL}w500${favorite.detailedMovie[0].poster_path}`,
                   movieName: favorite.detailedMovie[0].original_title,

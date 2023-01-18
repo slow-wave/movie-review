@@ -6,6 +6,8 @@ import { Row } from "antd";
 
 function ReviewShow() {
   const [Reviews, setReviews] = useState([]);
+  let userId = localStorage.getItem("userId");
+  let userNickname = localStorage.getItem("nickname");
 
   useEffect(() => {
     fetchReview();
@@ -13,7 +15,7 @@ function ReviewShow() {
 
   const fetchReview = () => {
     Axios.post("/api/review/getReview", {
-      writer: localStorage.getItem("userId"),
+      writer: userId,
     }).then((response) => {
       if (response.data.success) {
         setReviews(response.data.reviews);
@@ -34,6 +36,7 @@ function ReviewShow() {
             <React.Fragment key={index}>
               <GridCards
                 reviewPage
+                nickname={userNickname}
                 reviewId={review._id}
                 posterPath={review.detailed[0].poster_path}
                 image={

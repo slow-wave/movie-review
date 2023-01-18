@@ -43,12 +43,12 @@ function App() {
           <Route exact path="/review" component={Auth(ReviewShowPage, true)} />
           <Route
             exact
-            path="/review/:reviewId"
+            path="/review/:userNickname/:reviewId"
             component={Auth(ReviewDetailPage, true)}
           />
           <Route
             exact
-            path="/review/edit/:reviewId"
+            path="/review/edit/:userNickname/:reviewId"
             component={Auth(ReviewEditPage, true)}
           />
         </Switch>

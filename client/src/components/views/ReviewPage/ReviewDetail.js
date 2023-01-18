@@ -16,6 +16,8 @@ function ReviewDetail(props) {
   const image = location.state.image;
   const movieName = location.state.movieName;
   let reviewId = props.match.params.reviewId;
+  let userId = localStorage.getItem("userId");
+  let userNickname = localStorage.getItem("nickname");
 
   useEffect(() => {
     fetchReview();
@@ -98,7 +100,7 @@ function ReviewDetail(props) {
       <div style={{ width: "85%", margin: "1rem auto" }}>
         <Link
           to={{
-            pathname: `/review/edit/${reviewId}`,
+            pathname: `/review/edit/${userNickname}/${reviewId}`,
             state: {
               review: Review,
               tags: Tags,
