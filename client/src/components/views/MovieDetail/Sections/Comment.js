@@ -1,7 +1,8 @@
 import Axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SingleComment from "./SingleComment";
-import ReplyComment from "./ReplyComment";
+import { Input, Button } from "antd";
+import { CommentOutlined, EditTwoTone } from "@ant-design/icons";
 
 function Comment(props) {
   const movieId = props.movieId;
@@ -33,9 +34,12 @@ function Comment(props) {
   };
 
   return (
-    <div>
+    <div style={{ marginTop: "5%" }}>
       <br />
-      <p> Replies </p>
+      <p>
+        <CommentOutlined />
+        Replies
+      </p>
       <hr />
       {/* Comment Lists */}
       {props.CommentLists &&
@@ -49,24 +53,22 @@ function Comment(props) {
                   userFrom={userFrom}
                   refreshFunction={props.refreshFunction}
                 />
-                {/* <ReplyComment CommentLists={props.CommentLists} movieId={movieId} parentCommentId={comment._id} refreshFunction={props.refreshFunction} /> */}
               </React.Fragment>
             )
         )}
 
       {/* Root Comment Form */}
-      <form style={{ display: "flex" }} onSubmit={onSubmit}>
-        <textarea
-          style={{ width: "100%", borderRadius: "5px" }}
+      <form style={{ display: "flex", marginTop: "2%" }} onSubmit={onSubmit}>
+        <Input
           onChange={handleClick}
           value={CommentValue}
           placeholder="댓글을 작성해주세요."
         />
         <br />
-        <button style={{ width: "20%", height: "52px" }} onClick={onSubmit}>
-          Submit
-        </button>
       </form>
+      <Button onClick={onSubmit} shape="circle" style={{ float: "right" }}>
+        <EditTwoTone />
+      </Button>
     </div>
   );
 }
