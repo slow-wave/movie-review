@@ -43,7 +43,7 @@ function LandingPage() {
         />
       )}
       {/* Search Feature */}
-      <div
+      {/* <div
         style={{
           width: "85%",
           margin: "1rem auto",
@@ -58,7 +58,7 @@ function LandingPage() {
         >
           Search
         </Button>
-      </div>
+      </div> */}
 
       <div style={{ width: "85%", margin: "1rem auto" }}>
         <h2>Movies by latest</h2>
