@@ -39,72 +39,66 @@ function Rating(props) {
 
   if (props.submitRating) {
     return (
-      <div>
-        <div style={{ width: "99%", margin: "1rem auto" }}>
-          <div className="site-card-wrapper">
-            <Card title="Best Movie" bordered={false}>
-              <Stars>
-                {ARRAY.map((el, idx) => {
-                  return (
-                    <FaStar
-                      id="rating_submit"
-                      key={idx}
-                      size="50"
-                      onClick={() => handleStarClick(el)}
-                      className={clicked[el] && "yellowStar"}
-                    />
-                  );
-                })}
-              </Stars>
-            </Card>
-          </div>
+      <div style={{ margin: "1rem auto" }}>
+        <div className="site-card-wrapper">
+          <Card title="Best Movie" bordered={false}>
+            <Stars>
+              {ARRAY.map((el, idx) => {
+                return (
+                  <FaStar
+                    id="rating_submit"
+                    key={idx}
+                    size="50"
+                    onClick={() => handleStarClick(el)}
+                    className={clicked[el] && "yellowStar"}
+                  />
+                );
+              })}
+            </Stars>
+          </Card>
         </div>
       </div>
     );
   } else if (props.editRating) {
     return (
-      <div>
-        <div style={{ width: "99%", margin: "1rem auto" }}>
-          <div className="site-card-wrapper">
-            <Card title="Best Movie" bordered={false}>
-              <Stars>
-                {ARRAY.map((el, idx) => {
-                  return (
-                    <FaStar
-                      id="rating_edit"
-                      key={idx}
-                      size="50"
-                      onClick={() => handleStarClick(el)}
-                      className={clicked[el] && "yellowStar"}
-                    />
-                  );
-                })}
-              </Stars>
-            </Card>
-          </div>
+      <div style={{ margin: "1rem auto" }}>
+        <div className="site-card-wrapper">
+          <Card title="Best Movie" bordered={false}>
+            <Stars>
+              {ARRAY.map((el, idx) => {
+                return (
+                  <FaStar
+                    id="rating_edit"
+                    key={idx}
+                    size="50"
+                    onClick={() => handleStarClick(el)}
+                    className={clicked[el] && "yellowStar"}
+                  />
+                );
+              })}
+            </Stars>
+          </Card>
         </div>
       </div>
     );
   } else {
     return (
-      <div>
-        <div style={{ width: "99%", margin: "1rem auto" }}>
-          <div className="site-card-wrapper">
-            <Card title="Best Movie" bordered={false}>
-              <Stars type="showReview">
-                {ARRAY.map((el, idx) => {
-                  return (
-                    <FaStar
-                      id="rating"
-                      key={idx}
-                      size="50"
-                      className={clicked[el] && "yellowStar"}
-                    />
-                  );
-                })}
-              </Stars>
-            </Card>
-          </div>
+      <div style={{ margin: "1rem auto" }}>
+        <div className="site-card-wrapper">
+          <Card title="Best Movie" bordered={false}>
+            <Stars type="showReview">
+              {ARRAY.map((el, idx) => {
+                return (
+                  <FaStar
+                    id="rating"
+                    key={idx}
+                    size="50"
+                    className={clicked[el] && "yellowStar"}
+                  />
+                );
+              })}
+            </Stars>
+          </Card>
         </div>
       </div>
     );

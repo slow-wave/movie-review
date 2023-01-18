@@ -3,7 +3,7 @@ import { IMAGE_BASE_URL } from "../../../../Config";
 
 function SimpleMovieInfo(props) {
   return (
-    <div>
+    <div style={{ width: "70%" }}>
       <a href={`/movie/${props.movieId}`}>
         <img
           style={{ width: "30%" }}

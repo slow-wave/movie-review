@@ -7,6 +7,7 @@ function MovieInfo(props) {
   return (
     <div>
       <h2 style={{ fontSize: "1.2rem" }}>Movie Info</h2>
+      <hr />
       <div style={{ marginTop: "5%" }}>
         <Descriptions title="summary" bordered>
           <Descriptions.Item label="Title">

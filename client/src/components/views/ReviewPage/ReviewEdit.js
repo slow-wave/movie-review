@@ -44,45 +44,41 @@ function ReviewEdit() {
   };
 
   return (
-    <div style={{ width: "85%", margin: "1rem auto" }}>
-      <h2>Review</h2>
+    <div style={{ width: "90%", margin: "1rem auto" }}>
+      <h2 style={{ fontSize: "1.2rem" }}>Review</h2>
       <hr />
-      <div style={{ width: "85%", margin: "1rem auto", display: "flex" }}>
-        <div style={{ width: "85%", margin: "1rem auto", flex: "1" }}>
-          <h3>
-            <Text mark>Movie Info</Text>
-          </h3>
-          <SimpleMovieInfoPage
-            movieId={data.movieId}
-            image={data.image}
-            alt={data.alt}
+      <div style={{ margin: "1rem auto" }}>
+        <h3 style={{ fontSize: "1rem" }}>
+          <Text mark>Movie Info</Text>
+        </h3>
+        <SimpleMovieInfoPage
+          movieId={data.movieId}
+          image={data.image}
+          alt={data.alt}
+        />
+      </div>
+      <div style={{ margin: "1rem auto", marginTop: "10%" }}>
+        <h3 style={{ fontSize: "1rem" }}>
+          <Text mark>Star Ratings</Text>
+        </h3>
+        {data.review.ratingTotal ? (
+          <RatingPage
+            editRating
+            setbestScore={setbestScore}
+            score={data.review.ratingTotal}
           />
-        </div>
-        <div style={{ flex: "1" }}>
-          <div style={{ width: "85%", margin: "1rem auto" }}>
-            <h3>
-              <Text mark>Star Ratings</Text>
-            </h3>
-            {data.review.ratingTotal ? (
-              <RatingPage
-                editRating
-                setbestScore={setbestScore}
-                score={data.review.ratingTotal}
-              />
-            ) : (
-              <></>
-            )}
-          </div>
-          <div style={{ width: "85%", margin: "1rem auto" }}>
-            <h3>
-              <Text mark>Tags</Text>
-            </h3>
-            <TagsPage setTags={setTags} tags={tags} data={data.tags} />
-          </div>
+        ) : (
+          <></>
+        )}
+        <div style={{ margin: "1rem auto", marginTop: "10%" }}>
+          <h3 style={{ fontSize: "1rem" }}>
+            <Text mark>Tags</Text>
+          </h3>
+          <TagsPage setTags={setTags} tags={tags} data={data.tags} />
         </div>
       </div>
-      <div style={{ width: "85%", margin: "1rem auto" }}>
-        <h3>
+      <div style={{ margin: "1rem auto", marginTop: "10%" }}>
+        <h3 style={{ fontSize: "1rem" }}>
           <Text mark>Review</Text>
         </h3>
         <ContentPage
@@ -91,7 +87,7 @@ function ReviewEdit() {
           mainContent={data.review.mainContent}
         />
       </div>
-      <div style={{ width: "85%", margin: "1rem auto" }}>
+      <div style={{ margin: "1rem auto" }}>
         <Link
           to={{
             pathname: `/review/${userNickname}/${data.review._id}`,

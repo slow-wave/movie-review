@@ -77,7 +77,7 @@ function ReviewDetail(props) {
             alt={movieName}
           />
         </div>
-        <div style={{ margin: "1rem auto", marginTop: "5%" }}>
+        <div style={{ margin: "1rem auto", marginTop: "10%" }}>
           <h3 style={{ fontSize: "1rem" }}>
             <Text mark>Star Ratings</Text>
           </h3>
@@ -90,14 +90,14 @@ function ReviewDetail(props) {
           ) : (
             <></>
           )}
-          <div style={{ margin: "1rem auto", marginTop: "5%" }}>
+          <div style={{ margin: "1rem auto", marginTop: "10%" }}>
             <h3 style={{ fontSize: "1rem" }}>
               <Text mark>Tags</Text>
             </h3>
             {Tags && Tags.map((tag) => <Tag>{tag}</Tag>)}
           </div>
         </div>
-        <div style={{ margin: "1rem auto", marginTop: "5%" }}>
+        <div style={{ margin: "1rem auto", marginTop: "10%" }}>
           <h3 style={{ fontSize: "1rem" }}>
             <Text mark>Review</Text>
           </h3>

@@ -56,41 +56,39 @@ function Review(props) {
 
   return (
     <div style={{ width: "85%", margin: "1rem auto" }}>
-      <h2>Review</h2>
+      <h2 style={{ fontSize: "1.2rem" }}>Review</h2>
       <hr />
-      <div style={{ width: "85%", margin: "1rem auto", display: "flex" }}>
-        <div style={{ width: "85%", margin: "1rem auto", flex: "1" }}>
-          <h3>
-            <Text mark>Movie Info</Text>
+      <div style={{ margin: "1rem auto" }}>
+        <h3 style={{ fontSize: "1rem" }}>
+          <Text mark>Movie Info</Text>
+        </h3>
+        <SimpleMovieInfoPage
+          movieId={movieId}
+          image={data.movieInfo.poster_path}
+          alt={data.movieInfo.original_title}
+        />
+      </div>
+      <div style={{ flex: "1" }}>
+        <div style={{ margin: "1rem auto", marginTop: "10%" }}>
+          <h3 style={{ fontSize: "1rem" }}>
+            <Text mark>Star Ratings</Text>
           </h3>
-          <SimpleMovieInfoPage
-            movieId={movieId}
-            image={data.movieInfo.poster_path}
-            alt={data.movieInfo.original_title}
-          />
+          <RatingPage submitRating setbestScore={setbestScore} />
         </div>
-        <div style={{ flex: "1" }}>
-          <div style={{ width: "85%", margin: "1rem auto" }}>
-            <h3>
-              <Text mark>Star Ratings</Text>
-            </h3>
-            <RatingPage submitRating setbestScore={setbestScore} />
-          </div>
-          <div style={{ width: "85%", margin: "1rem auto" }}>
-            <h3>
-              <Text mark>Tags</Text>
-            </h3>
-            <TagsPage setTags={setTags} tags={tags} />
-          </div>
+        <div style={{ margin: "1rem auto", marginTop: "10%" }}>
+          <h3 style={{ fontSize: "1rem" }}>
+            <Text mark>Tags</Text>
+          </h3>
+          <TagsPage setTags={setTags} tags={tags} />
         </div>
       </div>
-      <div style={{ width: "85%", margin: "1rem auto" }}>
-        <h3>
+      <div style={{ margin: "1rem auto", marginTop: "10%" }}>
+        <h3 style={{ fontSize: "1rem" }}>
           <Text mark>Review</Text>
         </h3>
         <ContentPage />
       </div>
-      <div style={{ width: "85%", margin: "1rem auto" }}>
+      <div style={{ margin: "1rem auto" }}>
         <Button onClick={onClickSubmit}>submit!</Button>
       </div>
     </div>
