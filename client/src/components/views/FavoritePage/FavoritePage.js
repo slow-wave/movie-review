@@ -113,7 +113,7 @@ function FavoritePage() {
     <div style={{ width: "85%", margin: "3rem auto" }}>
       <h2> Favorite Movies </h2>
       <hr />
-      <div style={{ width: "85%", margin: "3rem auto" }}>
+      <div style={{ margin: "3rem auto" }}>
         <table>
           <thead>
             <tr>
