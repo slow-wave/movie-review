@@ -57,6 +57,13 @@ router.post("/getFavoredMovie", (req, res) => {
         from: "reviews",
         localField: "movieId",
         foreignField: "movieId",
+        pipeline: [
+          {
+            $match: {
+              $expr: { $eq: ["$writer", { $toObjectId: req.body.userFrom }] },
+            },
+          },
+        ],
         as: "detailed",
       },
     },
