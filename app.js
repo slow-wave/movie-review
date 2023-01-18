@@ -17,7 +17,7 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
-mongoose.connect(CONNECTION_STRING, { dbName: "movie" });
+mongoose.connect(CONNECTION_STRING, { dbName: "movieapp" });
 
 const db = mongoose.connection;
 
