@@ -65,7 +65,7 @@ function FavoritePage() {
             <td>{favorite.movieTitle}</td>
           </a>
         </Popover>
-        <td>
+        <td style={{ textAlign: "center" }}>
           {/* 작성된 리뷰가 없다면 '새로 작성' 활성화 */}
           {favorite.detailed.length === 0 && (
             <Link
@@ -98,7 +98,7 @@ function FavoritePage() {
             </Link>
           )}
         </td>
-        <td>
+        <td style={{ textAlign: "center" }}>
           <CloseCircleTwoTone
             onClick={() => onClickDelete(favorite.movieId, favorite.userFrom)}
             twoToneColor="#eb2f96"
@@ -111,15 +111,15 @@ function FavoritePage() {
 
   return (
     <div style={{ width: "85%", margin: "3rem auto" }}>
-      <h2> Favorite Movies </h2>
+      <h2 style={{ fontSize: "1.2rem" }}> Favorite Movies </h2>
       <hr />
       <div style={{ margin: "3rem auto" }}>
         <table>
           <thead>
             <tr>
-              <th>Movie Title</th>
-              <th>Review</th>
-              <th>Remove</th>
+              <th style={{ textAlign: "center" }}>Movie Title</th>
+              <th style={{ textAlign: "center" }}>Review</th>
+              <th style={{ textAlign: "center" }}>Remove from Favorites</th>
             </tr>
           </thead>
           <tbody>{renderCards}</tbody>

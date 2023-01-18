@@ -67,18 +67,18 @@ function ReviewDetail(props) {
   return (
     <div>
       <div style={{ width: "85%", margin: "1rem auto" }}>
-        <h2>Review</h2>
+        <h2 style={{ fontSize: "1.2rem" }}>Review</h2>
         <hr />
         <div style={{ margin: "1rem auto" }}>
-          <h3>Movie Info</h3>
+          <h3 style={{ fontSize: "1rem" }}>Movie Info</h3>
           <SimpleMovieInfoPage
             movieId={Review.movieId}
             image={image}
             alt={movieName}
           />
         </div>
-        <div style={{ margin: "1rem auto", marginTop: "10%" }}>
-          <h3>
+        <div style={{ margin: "1rem auto", marginTop: "5%" }}>
+          <h3 style={{ fontSize: "1rem" }}>
             <Text mark>Star Ratings</Text>
           </h3>
           {Review.ratingTotal ? (
@@ -90,15 +90,15 @@ function ReviewDetail(props) {
           ) : (
             <></>
           )}
-          <div style={{ margin: "1rem auto", marginTop: "10%" }}>
-            <h3>
+          <div style={{ margin: "1rem auto", marginTop: "5%" }}>
+            <h3 style={{ fontSize: "1rem" }}>
               <Text mark>Tags</Text>
             </h3>
             {Tags && Tags.map((tag) => <Tag>{tag}</Tag>)}
           </div>
         </div>
-        <div style={{ margin: "1rem auto", marginTop: "10%" }}>
-          <h3>
+        <div style={{ margin: "1rem auto", marginTop: "5%" }}>
+          <h3 style={{ fontSize: "1rem" }}>
             <Text mark>Review</Text>
           </h3>
           <Space direction="vertical" size="middle" style={{ display: "flex" }}>
@@ -125,12 +125,12 @@ function ReviewDetail(props) {
               },
             }}
           >
-            <Button>수정</Button>
+            <Button>Edit</Button>
           </Link>
         </div>
         <div style={{ flex: "1", textAlign: "right" }}>
           <Button danger onClick={onClickDelete}>
-            삭제
+            Delete
           </Button>
         </div>
       </div>

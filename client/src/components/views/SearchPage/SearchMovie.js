@@ -37,8 +37,8 @@ function SearchMovie() {
       >
         <Search onChange={updateSearchTerms} placeholder="Search By Typing" />
       </div>
-      <div style={{ width: "85%", margin: "1rem auto" }}>
-        <h2>Results</h2>
+      <div style={{ width: "85%", margin: "1rem auto", marginTop: "3%" }}>
+        <h2 style={{ fontSize: "1.2rem" }}>Results</h2>
         <hr />
 
         {/* Movie Grid Cards */}

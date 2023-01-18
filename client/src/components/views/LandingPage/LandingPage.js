@@ -3,7 +3,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL } from "../../../Config";
 import MainImage from "./Sections/MainImage";
 import GridCards from "../commons/GridCards";
 import { Row, Button } from "antd";
-import { SearchOutlined, PlusCircleTwoTone } from "@ant-design/icons";
+import { PlusCircleTwoTone } from "@ant-design/icons";
 
 function LandingPage() {
   const [Movies, setMovies] = useState([]);
@@ -44,7 +44,7 @@ function LandingPage() {
       )}
 
       <div style={{ width: "85%", margin: "1rem auto" }}>
-        <h2>Movies by latest</h2>
+        <h2 style={{ fontSize: "1.2rem" }}>Movies by latest</h2>
         <hr />
 
         {/* Movie Grid Cards */}
