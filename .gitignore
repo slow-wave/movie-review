@@ -142,6 +142,7 @@ dist
 .svelte-kit
 
 ### react ###
+./client/SetupProxy.js
 .DS_*
 **/*.backup.*
 **/*.back.*
