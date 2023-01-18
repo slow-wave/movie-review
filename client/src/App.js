@@ -9,7 +9,7 @@ import NavBar from "./components/views/NavBar/NavBar";
 import Footer from "./components/views/Footer/Footer";
 import MovieDetail from "./components/views/MovieDetail/MovieDetail";
 import FavoritePage from "./components/views/FavoritePage/FavoritePage";
-import SearchMoviePage from "./components/views/MovieDetail/SearchMovie";
+import SearchMoviePage from "./components/views/SearchPage/SearchMovie";
 import ReviewSubmitPage from "./components/views/ReviewPage/ReviewSubmit";
 import ReviewShowPage from "./components/views/ReviewPage/ReviewShow";
 import ReviewDetailPage from "./components/views/ReviewPage/ReviewDetail";

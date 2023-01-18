@@ -33,7 +33,7 @@ function LandingPage() {
   };
 
   return (
-    <div style={{ width: "100%", margin: "0" }}>
+    <div>
       {/* Main Image */}
       {MainMovieImage && (
         <MainImage
@@ -42,23 +42,6 @@ function LandingPage() {
           text={MainMovieImage.overview}
         />
       )}
-      {/* Search Feature */}
-      {/* <div
-        style={{
-          width: "85%",
-          margin: "1rem auto",
-          display: "flex",
-          justifyContent: "flex-end",
-        }}
-      >
-        <Button
-          href="/search"
-          style={{ width: "10%", backgroundColor: "#52c41a", color: "#F8F8FF" }}
-          icon={<SearchOutlined />}
-        >
-          Search
-        </Button>
-      </div> */}
 
       <div style={{ width: "85%", margin: "1rem auto" }}>
         <h2>Movies by latest</h2>
