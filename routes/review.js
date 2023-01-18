@@ -65,4 +65,13 @@ router.post("/getTag", (req, res) => {
   });
 });
 
+router.post("/removeFromReview", (req, res) => {
+  Review.findOneAndDelete({
+    _id: req.body.reviewId,
+  }).exec((err, doc) => {
+    if (err) return res.status(400).send(err);
+    return res.status(200).json({ success: true, doc });
+  });
+});
+
 module.exports = router;

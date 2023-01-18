@@ -1,6 +1,6 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useHistory } from "react-router-dom";
 import RatingPage from "./Sections/Rating";
 import SimpleMovieInfoPage from "./Sections/SimpleMovieInfo";
 import { Button, Tag, Card, Space, Typography } from "antd";
@@ -13,6 +13,8 @@ function ReviewDetail(props) {
   const [Tags, setTags] = useState([]);
 
   const location = useLocation();
+  let history = useHistory();
+
   const image = location.state.image;
   const movieName = location.state.movieName;
   let reviewId = props.match.params.reviewId;
@@ -42,6 +44,22 @@ function ReviewDetail(props) {
         setTags(response.data.tags[0].tagArray);
       } else {
         alert("리뷰 정보 가져오기 실패");
+      }
+    });
+  };
+
+  const onClickDelete = () => {
+    const variables = { reviewId };
+
+    Axios.post("/api/review/removeFromReview", variables).then((response) => {
+      if (response.data.success) {
+        alert("삭제가 완료되었습니다.");
+        //이동
+        history.push({
+          pathname: `/review`,
+        });
+      } else {
+        alert("favorite 삭제 실패");
       }
     });
   };
@@ -97,21 +115,28 @@ function ReviewDetail(props) {
           </Card>
         </Space>
       </div>
-      <div style={{ width: "85%", margin: "1rem auto" }}>
-        <Link
-          to={{
-            pathname: `/review/edit/${userNickname}/${reviewId}`,
-            state: {
-              review: Review,
-              tags: Tags,
-              image: image,
-              alt: movieName,
-              movieId: Review.movieId,
-            },
-          }}
-        >
-          <Button>수정</Button>
-        </Link>
+      <div style={{ width: "85%", margin: "1rem auto", display: "flex" }}>
+        <div style={{ flex: "1" }}>
+          <Link
+            to={{
+              pathname: `/review/edit/${userNickname}/${reviewId}`,
+              state: {
+                review: Review,
+                tags: Tags,
+                image: image,
+                alt: movieName,
+                movieId: Review.movieId,
+              },
+            }}
+          >
+            <Button>수정</Button>
+          </Link>
+        </div>
+        <div style={{ flex: "1", textAlign: "right" }}>
+          <Button danger onClick={onClickDelete}>
+            삭제
+          </Button>
+        </div>
       </div>
     </div>
   );
