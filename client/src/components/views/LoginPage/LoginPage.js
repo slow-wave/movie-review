@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Axios from "axios";
 import "../../../reset.css";
 import { loginUser } from "../../../_actions/user_actions";
 import { Formik } from "formik";
@@ -49,6 +50,21 @@ function LoginPage(props) {
             .then((response) => {
               if (response.payload.loginSuccess) {
                 window.localStorage.setItem("userId", response.payload.userId);
+
+                Axios.post("/api/users/getUserInfo", {
+                  _id: response.payload.userId,
+                }).then((response) => {
+                  if (response.data.success) {
+                    console.log(response.data);
+                    window.localStorage.setItem(
+                      "nickname",
+                      response.data.userInfo.nickname
+                    );
+                  } else {
+                    alert("유저 정보 가져오기 실패");
+                  }
+                });
+
                 if (rememberMe === true) {
                   window.localStorage.setItem("rememberMe", values.id);
                 } else {
