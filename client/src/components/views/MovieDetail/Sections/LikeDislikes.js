@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Tooltip } from "antd";
+import Axios from "axios";
+import { Tooltip, Button } from "antd";
 import {
   DislikeOutlined,
   LikeOutlined,
   DislikeFilled,
   LikeFilled,
 } from "@ant-design/icons";
-import Axios from "axios";
 
 function LikeDislikes(props) {
   const [Likes, setLikes] = useState(0);
@@ -109,8 +109,12 @@ function LikeDislikes(props) {
   };
 
   return (
-    <div>
-      <span key="comment-basic-like">
+    <div style={{ float: "left" }}>
+      <Button
+        key="comment-basic-like"
+        type="text"
+        style={{ color: "#77AF9C", width: "40%" }}
+      >
         <Tooltip title="Like">
           {LikeAction === "liked" ? (
             <LikeFilled onClick={onLike} />
@@ -119,8 +123,8 @@ function LikeDislikes(props) {
           )}
         </Tooltip>
         <span style={{ paddingLeft: "8px", cursor: "auto" }}> {Likes} </span>
-      </span>
-      <span key="comment-basic-dislike">
+      </Button>
+      <Button key="comment-basic-dislike" type="text" style={{ width: "40%" }}>
         <Tooltip title="Dislike">
           {DislikeAction === "disliked" ? (
             <DislikeFilled onClick={onDislike} />
@@ -129,7 +133,7 @@ function LikeDislikes(props) {
           )}
         </Tooltip>
         <span style={{ paddingLeft: "8px", cursor: "auto" }}> {Dislikes} </span>
-      </span>
+      </Button>
       &nbsp;&nbsp;
     </div>
   );
