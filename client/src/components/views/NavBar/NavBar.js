@@ -1,20 +1,22 @@
 import React from "react";
 import Menu from "./Sections/Menu";
+import "bootstrap/dist/css/bootstrap.css";
 import "./Sections/Navbar.css";
 import logo from "./Sections/logo.png";
+import Container from "react-bootstrap/Container";
+import Navbar from "react-bootstrap/Navbar";
 
 function NavBar() {
   return (
-    <nav className="menu" style={{ zIndex: 5, width: "100%" }}>
-      <div className="menu__logo">
-        <a href="/">
-          <img src={logo} alt="logo" style={{ width: "60px" }} />
-        </a>
-      </div>
-      <div>
+    <Navbar collapseOnSelect expand="lg" bg="light">
+      <Container>
+        <Navbar.Brand href="/">
+          <img src={logo} alt="logo" style={{ width: "40px" }} />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Menu />
-      </div>
-    </nav>
+      </Container>
+    </Navbar>
   );
 }
 
