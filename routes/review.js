@@ -30,6 +30,11 @@ router.post("/edit", async (req, res) => {
 router.post("/getReview", (req, res) => {
   Review.aggregate([
     {
+      $match: {
+        $expr: { $eq: ["$writer", { $toObjectId: req.body.writer }] },
+      },
+    },
+    {
       $lookup: {
         from: "movies",
         localField: "movieId",
@@ -38,8 +43,11 @@ router.post("/getReview", (req, res) => {
       },
     },
   ]).exec((err, reviews) => {
-    if (err) return res.status(400).send(err);
-    return res.status(200).json({ success: true, reviews });
+    try {
+      res.status(200).json({ success: true, reviews });
+    } catch {
+      res.status(400).send(err);
+    }
   });
 });
 
