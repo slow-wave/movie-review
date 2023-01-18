@@ -69,51 +69,47 @@ function ReviewDetail(props) {
       <div style={{ width: "85%", margin: "1rem auto" }}>
         <h2>Review</h2>
         <hr />
-        <div style={{ display: "flex" }}>
-          <div style={{ flex: "1" }}>
-            <h3>Movie Info</h3>
-            <SimpleMovieInfoPage
-              movieId={Review.movieId}
-              image={image}
-              alt={movieName}
+        <div style={{ margin: "1rem auto" }}>
+          <h3>Movie Info</h3>
+          <SimpleMovieInfoPage
+            movieId={Review.movieId}
+            image={image}
+            alt={movieName}
+          />
+        </div>
+        <div style={{ margin: "1rem auto", marginTop: "10%" }}>
+          <h3>
+            <Text mark>Star Ratings</Text>
+          </h3>
+          {Review.ratingTotal ? (
+            <RatingPage
+              showRating
+              setbestScore={setbestScore}
+              score={Review.ratingTotal}
             />
-          </div>
-          <div style={{ flex: "1" }}>
-            <div style={{ width: "85%", margin: "1rem auto" }}>
-              <h3>
-                <Text mark>Star Ratings</Text>
-              </h3>
-              {Review.ratingTotal ? (
-                <RatingPage
-                  showRating
-                  setbestScore={setbestScore}
-                  score={Review.ratingTotal}
-                />
-              ) : (
-                <></>
-              )}
-            </div>
-            <div style={{ width: "85%", margin: "1rem auto" }}>
-              <h3>
-                <Text mark>Tags</Text>
-              </h3>
-              {Tags && Tags.map((tag) => <Tag>{tag}</Tag>)}
-            </div>
+          ) : (
+            <></>
+          )}
+          <div style={{ margin: "1rem auto", marginTop: "10%" }}>
+            <h3>
+              <Text mark>Tags</Text>
+            </h3>
+            {Tags && Tags.map((tag) => <Tag>{tag}</Tag>)}
           </div>
         </div>
-      </div>
-      <div style={{ width: "85%", margin: "1rem auto" }}>
-        <h3>
-          <Text mark>Review</Text>
-        </h3>
-        <Space direction="vertical" size="middle" style={{ display: "flex" }}>
-          <Card title="one-line">
-            <p>{Review.comment}</p>
-          </Card>
-          <Card title="detail">
-            <p>{Review.mainContent}</p>
-          </Card>
-        </Space>
+        <div style={{ margin: "1rem auto", marginTop: "10%" }}>
+          <h3>
+            <Text mark>Review</Text>
+          </h3>
+          <Space direction="vertical" size="middle" style={{ display: "flex" }}>
+            <Card title="one-line">
+              <p>{Review.comment}</p>
+            </Card>
+            <Card title="detail">
+              <p>{Review.mainContent}</p>
+            </Card>
+          </Space>
+        </div>
       </div>
       <div style={{ width: "85%", margin: "1rem auto", display: "flex" }}>
         <div style={{ flex: "1" }}>
