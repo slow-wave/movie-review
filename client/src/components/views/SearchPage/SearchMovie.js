@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { API_URL, API_KEY, IMAGE_BASE_URL } from "../../../Config";
 import GridCards from "../commons/GridCards";
-import { Row, Button } from "antd";
+import { Row } from "antd";
 import { Input } from "antd";
 
 const { Search } = Input;
@@ -14,7 +14,8 @@ function SearchMovie() {
     fetch(endpoint)
       .then((response) => response.json())
       .then((response) => {
-        setMovies([Movies, ...response.results]);
+        console.log(response.results);
+        setMovies([...response.results]);
         setCurrentSearchPage(response.page);
       });
   };
