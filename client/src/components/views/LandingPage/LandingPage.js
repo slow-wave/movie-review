@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
+import Axios from "axios";
 import { API_URL, API_KEY, IMAGE_BASE_URL } from "../../../Config";
 import MainImage from "./Sections/MainImage";
 import GridCards from "../commons/GridCards";
-import { Row, Button } from "antd";
+import ReviewPage from "./Sections/Reviews";
+import { Row } from "antd";
 import { PlusCircleTwoTone } from "@ant-design/icons";
 
 function LandingPage() {
   const [Movies, setMovies] = useState([]);
   const [MainMovieImage, setMainMovieImage] = useState(null);
   const [CurrentPage, setCurrentPage] = useState(0);
+  const [Reviews, setReviews] = useState([]);
+  let userId = localStorage.getItem("userId");
 
   useEffect(() => {
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
     fetchMovies(endpoint);
+    fetchReviews();
   }, []);
 
   const fetchMovies = (endpoint) => {
@@ -32,6 +37,32 @@ function LandingPage() {
     fetchMovies(endpoint);
   };
 
+  const fetchReviews = () => {
+    Axios.post("/api/review/getReview", {
+      writer: userId,
+    }).then((response) => {
+      if (response.data.success) {
+        console.log("data", response.data);
+        if (response.data.reviews.length > 4) {
+          randomReviews(response.data.reviews);
+        }
+        setReviews(response.data.reviews);
+      } else {
+        alert("리뷰 정보 가져오기 실패");
+      }
+    });
+  };
+  const randomReviews = (reviewList) => {
+    let newnum = [];
+    while (reviewList.length > 4) {
+      let movenum = reviewList.splice(
+        Math.floor(Math.random() * reviewList.length),
+        1
+      )[0];
+      newnum.push(movenum);
+    }
+  };
+
   return (
     <div>
       {/* Main Image */}
@@ -44,6 +75,8 @@ function LandingPage() {
       )}
 
       <div style={{ width: "85%", margin: "1rem auto" }}>
+        {/* Reviews */}
+        {Reviews && <ReviewPage data={Reviews} />}
         <h2 style={{ fontSize: "1.2rem" }}>Movies by latest</h2>
         <hr />
 
@@ -65,6 +98,7 @@ function LandingPage() {
               </React.Fragment>
             ))}
         </Row>
+        {/* Load more contents button */}
         <div
           style={{
             display: "flex",
