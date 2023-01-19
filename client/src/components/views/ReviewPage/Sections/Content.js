@@ -23,7 +23,7 @@ function Content(props) {
   if (props.editReview) {
     return (
       <div>
-        <h4>one-line</h4>
+        <h4 style={{ fontSize: "0.8rem" }}>one-line</h4>
         <TextArea
           id="one-line"
           onChange={onCommentChange}
@@ -33,7 +33,7 @@ function Content(props) {
         />
         <br />
         <br />
-        <h4>detail</h4>
+        <h4 style={{ fontSize: "0.8rem" }}>detail</h4>
         <TextArea id="detail" onChange={onMainChange} value={Main} rows={4} />
       </div>
     );

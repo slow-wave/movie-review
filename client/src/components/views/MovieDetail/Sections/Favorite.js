@@ -1,61 +1,58 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
-import { Button, Descriptions } from "antd";
+import { Button } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 
 function Favorite(props) {
   const movieId = props.movieId;
   const userFrom = props.userFrom;
-  const movieTitle = props.movieInfo.title;
-  const moviePost = props.movieInfo.backdrop_path;
-  const movieRunTime = props.movieInfo.runtime;
+  const data = props.movieInfo;
 
   const [FavoriteNumber, setFavoriteNumber] = useState(0);
   const [Favorited, setFavorited] = useState(false);
 
-  let variables = {
+  let favoriteInfo = {
     userFrom,
     movieId,
-    moviePost,
-    movieTitle,
-    movieRunTime,
   };
 
-  let datas = {
+  let movieInfo = {
     _id: movieId,
-    adult: props.movieInfo.adult,
-    backdrop_path: moviePost,
-    belongs_to_collection: props.movieInfo.belongs_to_collection,
-    budget: props.movieInfo.budget,
-    genres: props.movieInfo.genres,
-    original_language: movieTitle,
-    original_title: props.movieInfo.original_title,
-    overview: props.movieInfo.overview,
-    popularity: props.movieInfo.popularity,
-    poster_path: props.movieInfo.poster_path,
-    production_companies: props.movieInfo.production_companies,
-    production_countries: props.movieInfo.production_countries,
-    release_date: props.movieInfo.release_date,
-    revenue: props.movieInfo.revenue,
-    runtime: movieRunTime,
-    spoken_languages: props.movieInfo.spoken_languages,
-    status: props.movieInfo.status,
-    title: props.movieInfo.title,
-    video: props.movieInfo.video,
-    vote_average: props.movieInfo.vote_average,
-    vote_count: props.movieInfo.vote_count,
+    adult: data.adult,
+    backdrop_path: data.backdrop_path,
+    belongs_to_collection: data.belongs_to_collection,
+    budget: data.budget,
+    genres: data.genres,
+    original_language: data.title,
+    original_title: data.original_title,
+    overview: data.overview,
+    popularity: data.popularity,
+    poster_path: data.poster_path,
+    production_companies: data.production_companies,
+    production_countries: data.production_countries,
+    release_date: data.release_date,
+    revenue: data.revenue,
+    runtime: data.runtime,
+    spoken_languages: data.spoken_languages,
+    status: data.status,
+    title: data.title,
+    video: data.video,
+    vote_average: data.vote_average,
+    vote_count: data.vote_count,
   };
 
   useEffect(() => {
-    Axios.post("/api/favorite/favoriteNumber", variables).then((response) => {
-      setFavoriteNumber(response.data.favoriteNumber);
-      if (response.data.success) {
-      } else {
-        alert("숫자 정보 가져오기 실패");
+    Axios.post("/api/favorite/favoriteNumber", favoriteInfo).then(
+      (response) => {
+        setFavoriteNumber(response.data.favoriteNumber);
+        if (response.data.success) {
+        } else {
+          alert("숫자 정보 가져오기 실패");
+        }
       }
-    });
+    );
 
-    Axios.post("/api/favorite/favorited", variables).then((response) => {
+    Axios.post("/api/favorite/favorited", favoriteInfo).then((response) => {
       if (response.data.success) {
         setFavorited(response.data.favorited);
       } else {
@@ -66,7 +63,7 @@ function Favorite(props) {
 
   const onClickFavorite = () => {
     if (Favorited) {
-      Axios.post("/api/favorite/removeFromFavorite", variables).then(
+      Axios.post("/api/favorite/removeFromFavorite", favoriteInfo).then(
         (response) => {
           if (response.data.success) {
             setFavoriteNumber(FavoriteNumber - 1);
@@ -77,15 +74,17 @@ function Favorite(props) {
         }
       );
     } else {
-      Axios.post("/api/favorite/addToFavorite", variables).then((response) => {
-        if (response.data.success) {
-          setFavoriteNumber(FavoriteNumber + 1);
-          setFavorited(!Favorited);
-        } else {
-          alert("Favorite 추가 실패");
+      Axios.post("/api/favorite/addToFavorite", favoriteInfo).then(
+        (response) => {
+          if (response.data.success) {
+            setFavoriteNumber(FavoriteNumber + 1);
+            setFavorited(!Favorited);
+          } else {
+            alert("Favorite 추가 실패");
+          }
         }
-      });
-      Axios.post("/api/movie/addToMovie", datas).then((response) => {
+      );
+      Axios.post("/api/movie/addToMovie", movieInfo).then((response) => {
         if (response.data.success) {
         } else {
           alert("movie 정보 추가 실패");
@@ -101,8 +100,8 @@ function Favorite(props) {
           <HeartFilled style={{ color: "#eb2f96", fontSize: "20px" }} />
         ) : (
           <HeartOutlined style={{ color: "#eb2f96", fontSize: "20px" }} />
-        )}{" "}
-        {FavoriteNumber}{" "}
+        )}
+        {FavoriteNumber}
       </Button>
     </div>
   );

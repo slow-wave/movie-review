@@ -27,7 +27,7 @@ function ReviewShow() {
 
   return (
     <div style={{ width: "90%", margin: "1rem auto" }}>
-      <h2 style={{ fontSize: "1.2rem" }}>Reviews</h2>
+      <h2 style={{ fontSize: "1.2rem" }}> Reviews of '{userNickname}'</h2>
       <hr />
       {/* Review Grid Cards */}
       <Row gutter={[16, 16]}>

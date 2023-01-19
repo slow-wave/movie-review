@@ -14,7 +14,6 @@ function SearchMovie() {
     fetch(endpoint)
       .then((response) => response.json())
       .then((response) => {
-        console.log(response.results);
         setMovies([...response.results]);
         setCurrentSearchPage(response.page);
       });

@@ -55,7 +55,6 @@ function LoginPage(props) {
                   _id: response.payload.userId,
                 }).then((response) => {
                   if (response.data.success) {
-                    console.log(response.data);
                     window.localStorage.setItem(
                       "nickname",
                       response.data.userInfo.nickname

@@ -51,8 +51,10 @@ function FavoritePage() {
   const renderCards = Favorites.map((favorite, index) => {
     const content = (
       <div>
-        {favorite.moviePost ? (
-          <img src={`${IMAGE_BASE_URL}w500${favorite.moviePost}`} />
+        {favorite.detailedMovie[0].backdrop_path ? (
+          <img
+            src={`${IMAGE_BASE_URL}w500${favorite.detailedMovie[0].backdrop_path}`}
+          />
         ) : (
           "no image"
         )}
@@ -60,9 +62,15 @@ function FavoritePage() {
     );
     return (
       <tr key={index}>
-        <Popover content={content} title={`${favorite.movieTitle}`}>
-          <a href={`/movie/${favorite.movieId}`} style={{ color: "#566270" }}>
-            <td>{favorite.movieTitle}</td>
+        <Popover
+          content={content}
+          title={`${favorite.detailedMovie[0].original_title}`}
+        >
+          <a
+            href={`/movie/${favorite.detailedMovie[0]._id}`}
+            style={{ color: "#566270" }}
+          >
+            <td>{favorite.detailedMovie[0].original_title}</td>
           </a>
         </Popover>
         <td style={{ textAlign: "center" }}>

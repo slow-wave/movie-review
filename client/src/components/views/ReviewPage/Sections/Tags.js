@@ -20,7 +20,7 @@ const Tags = (props) => {
     }
   }, []);
   const handleClose = (removedTag) => {
-    const newTags = Tags.filter((tag) => tag !== removedTag);
+    const newTags = tags.filter((tag) => tag !== removedTag);
     setTags(newTags);
   };
   const showInput = () => {

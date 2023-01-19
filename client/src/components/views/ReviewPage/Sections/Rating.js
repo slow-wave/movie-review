@@ -17,7 +17,6 @@ function Rating(props) {
 
   const setStars = () => {
     let clickStates = [...clicked];
-    console.log(props.score);
     for (let i = 0; i < props.score; i++) {
       clickStates[i] = true;
     }
