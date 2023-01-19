@@ -3,11 +3,10 @@ import Axios from "axios";
 import { API_URL, API_KEY, IMAGE_BASE_URL } from "../../../Config";
 import MainImage from "../LandingPage/Sections/MainImage";
 import MovieInfo from "./Sections/MovieInfo";
-import GridCards from "../commons/GridCards";
 import Favorite from "./Sections/Favorite";
 import Comment from "./Sections/Comment";
 import LikeDislikes from "./Sections/LikeDislikes";
-import { Row, Button } from "antd";
+import CastInfo from "./Sections/CastInfo";
 
 function MovieDetail(props) {
   let movieId = props.match.params.movieId;
@@ -15,7 +14,6 @@ function MovieDetail(props) {
 
   const [Movie, setMovie] = useState([]);
   const [Casts, setCasts] = useState([]);
-  const [ActorToggle, setActorToggle] = useState(false);
   const [Comments, setComments] = useState([]);
 
   const movieVariable = {
@@ -51,10 +49,6 @@ function MovieDetail(props) {
     setComments(Comments.concat(newComment));
   };
 
-  const toggleActorView = () => {
-    setActorToggle(!ActorToggle);
-  };
-
   return (
     <div>
       {/* Header */}
@@ -64,18 +58,24 @@ function MovieDetail(props) {
         text={Movie.overview}
       />
       {/* Body */}
-      <div style={{ width: "85%", margin: "1rem auto" }}>
+      <div
+        style={{
+          width: "85%",
+          margin: "1rem auto",
+        }}
+      >
         {/* Favorite button */}
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <Favorite movieInfo={Movie} movieId={movieId} userFrom={userFrom} />
         </div>
         {/* Movie Info */}
         <MovieInfo movie={Movie} />
-
-        <br />
+        {/* Actors Grid */}
+        <CastInfo casts={Casts} />
         {/* Like Info */}
         <LikeDislikes movieId={movieId} userFrom={userFrom} />
-
+      </div>
+      <div style={{ width: "85%", margin: "1rem auto" }}>
         {/* Comment */}
         <Comment
           CommentLists={Comments}
@@ -83,31 +83,6 @@ function MovieDetail(props) {
           userFrom={userFrom}
           refreshFunction={updateComment}
         />
-
-        {/* Actors Grid */}
-        <div
-          style={{ display: "flex", justifyContent: "center", margin: "2rem" }}
-        >
-          <Button onClick={toggleActorView}>Toogle Actor View</Button>
-        </div>
-
-        {ActorToggle && (
-          <Row gutter={[16, 16]}>
-            {Casts &&
-              Casts.cast.map((cast, index) => (
-                <React.Fragment key={index}>
-                  <GridCards
-                    image={
-                      cast.profile_path
-                        ? `${IMAGE_BASE_URL}w500${cast.profile_path}`
-                        : null
-                    }
-                    characterName={cast.name}
-                  />
-                </React.Fragment>
-              ))}
-          </Row>
-        )}
       </div>
     </div>
   );
