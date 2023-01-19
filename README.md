@@ -1,6 +1,6 @@
 <div align="center">
 
-  <h3 align="center">Movie Review service/h3>
+  <h3 align="center">Movie Review service</h3>
   <p align="center">
     MERN application using MongoDB Atlas, Express, and React on Koyeb
     <br />
