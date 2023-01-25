@@ -26,10 +26,5 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
-  },
-  "nodemonConfig": {
-    "env": {
-      "CONNECTION_STRING": "mongodb+srv://pumpkin:Su4JXXHki9zGxJFS@cluster0.v3ltnbq.mongodb.net/?retryWrites=true&w=majority"
-    }
   }
 }
