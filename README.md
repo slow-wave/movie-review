@@ -1,18 +1,47 @@
-<div align="center">
-  <h3 align="center">movie review WEB</h3>
-  <a href="https://koyeb.com">
-    <img src="https://www.koyeb.com/static/images/icons/koyeb.svg" alt="Logo" width="80" height="80">
-  </a>
-  <p align="center">
-    MERN application using MongoDB Atlas, Express, and React on Koyeb
-  </p>
-</div>
+### 🎬나만의 영화\_2022/12/20~
 
-### service URL
+MERN stack으로 개발한 개인 웹프로젝트 입니다.
+</br></br>
 
-[link](https://fixed-jacenta-memoonoffice.koyeb.app/)
+---
 
-### Test id/pw
+### [URL](https://mymovie-slowwave.koyeb.app/)
 
-- id : test@gmail.com
-- pw : 123456
+- Test 계정
+  - id : [test@gmail.com](mailto:test@gmail.com)
+  - pw : 123456
+    </br></br>
+
+---
+
+### Intro: 서비스 소개
+
+나만의 인생 영화를 북마크하고 리뷰를 작성할 수 있습니다.
+
+영화 정보는 [TMDB API](https://www.themoviedb.org/documentation/api)를 이용해 가져왔습니다.
+</br></br>
+
+---
+
+### Key Features: 주요 기능 소개
+
+1. 영화 즐겨찾기 등록, 삭제
+2. 리뷰 등록, 수정, 삭제
+   </br></br>
+
+---
+
+### Skills: 개발환경 및 기술스택
+
+- Frontend: React.js, javascript, HTML/CSS
+- Backend: Node.js
+- Database: MongoDB
+- Deploy: Koyeb
+  </br></br>
+
+---
+
+**Log:**
+
+- v1.
+  - 로그인, 영화 검색, 즐겨찾기 & 리뷰 등록
