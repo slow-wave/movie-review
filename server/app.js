@@ -27,7 +27,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 app.use("/api/users", require("./routes/users"));
@@ -38,9 +38,9 @@ app.use("/api/review", require("./routes/review"));
 app.use("/api/movie", require("./routes/movie"));
 
 // Return the client
-app.get("*", (_, res) => {
-  res.sendFile(path.join(__dirname, "public") + "/index.html");
-});
+// app.get("*", (_, res) => {
+//   res.sendFile(path.join(__dirname, "public") + "/index.html");
+// });
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -59,10 +59,10 @@ app.use(function (err, req, res, next) {
 });
 
 // for dev
-// const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 
-// app.listen(port, () => {
-//   console.log(`Server Listening on ${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Server Listening on ${port}`);
+});
 
 module.exports = app;
