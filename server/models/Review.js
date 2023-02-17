@@ -1,24 +1,30 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const reviewSchema = mongoose.Schema({
+const reviewSchema = mongoose.Schema(
+  {
     writer: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
     movieId: {
-        type: String
+      type: String,
     },
     mainContent: {
-        type: String
+      type: String,
     },
     comment: {
-        type: String
+      type: String,
     },
     ratingTotal: {
-        type: Number
-    }
-},    { timestamps: true});
+      type: Number,
+    },
+    tagArray: {
+      type: Array,
+    },
+  },
+  { timestamps: true }
+);
 
-const Review = mongoose.model('Review', reviewSchema);
+const Review = mongoose.model("Review", reviewSchema);
 
-module.exports = { Review }
+module.exports = { Review };
