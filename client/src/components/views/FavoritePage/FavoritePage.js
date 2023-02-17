@@ -13,7 +13,7 @@ import {
 function FavoritePage() {
   const [Favorites, setFavorites] = useState([]);
   let userId = localStorage.getItem("userId");
-  let userNickname = localStorage.getItem("nickname");
+  let userName = localStorage.getItem("nickname");
 
   useEffect(() => {
     fetchFavoredMovie();
@@ -78,7 +78,7 @@ function FavoritePage() {
           {favorite.detailed.length === 0 && (
             <Link
               to={{
-                pathname: `/review/submit/${favorite.movieId}`,
+                pathname: `/${userName}/reviews/write`,
                 state: { movieInfo: favorite.detailedMovie[0] },
               }}
             >
@@ -92,7 +92,7 @@ function FavoritePage() {
           {favorite.detailed.length !== 0 && (
             <Link
               to={{
-                pathname: `/review/${userNickname}/${favorite.detailed[0]._id}`,
+                pathname: `/${userName}/reviews/${favorite.detailed[0]._id}`,
                 state: {
                   image: `${IMAGE_BASE_URL}w500${favorite.detailedMovie[0].poster_path}`,
                   movieName: favorite.detailedMovie[0].original_title,

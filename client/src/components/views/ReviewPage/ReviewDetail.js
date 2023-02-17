@@ -1,9 +1,9 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, Link, useHistory } from "react-router-dom";
+import { Button, Tag, Card, Space, Typography } from "antd";
 import RatingPage from "./Sections/Rating";
 import SimpleMovieInfoPage from "./Sections/SimpleMovieInfo";
-import { Button, Tag, Card, Space, Typography } from "antd";
 
 const { Text } = Typography;
 
@@ -18,50 +18,37 @@ function ReviewDetail(props) {
   const image = location.state.image;
   const movieName = location.state.movieName;
   let reviewId = props.match.params.reviewId;
-  let userId = localStorage.getItem("userId");
-  let userNickname = localStorage.getItem("nickname");
+  let userName = localStorage.getItem("nickname");
 
   useEffect(() => {
     fetchReview();
-    fetchTag();
   }, []);
 
   const fetchReview = () => {
-    Axios.post("/api/review/getOneReview", { _id: reviewId }).then(
-      (response) => {
-        if (response.data.success) {
-          setReview(response.data.review[0]);
-        } else {
-          alert("리뷰 정보 가져오기 실패");
-        }
-      }
-    );
-  };
-
-  const fetchTag = () => {
-    Axios.post("/api/review/getTag", { _id: reviewId }).then((response) => {
+    Axios.get(`/api/:userId/reviews/${reviewId}`).then((response) => {
+      console.log(response.data);
       if (response.data.success) {
-        setTags(response.data.tags[0].tagArray);
+        setReview(...response.data.result);
+        setTags(response.data.result[0].tagArray);
       } else {
-        alert("리뷰 정보 가져오기 실패");
+        console.log("[ReviewDetail][fetchReview][error]");
       }
     });
   };
-
+  //동작X
   const onClickDelete = () => {
-    const variables = { reviewId };
-
-    Axios.post("/api/review/removeFromReview", variables).then((response) => {
+    Axios.delete(`/api/reviews/${reviewId}`).then((response) => {
       if (response.data.success) {
-        alert("삭제가 완료되었습니다.");
-        //이동
-        history.push({
-          pathname: `/review`,
-        });
+        alert("삭제 완료");
+        history.push({ pathname: `/reviews` });
       } else {
-        alert("favorite 삭제 실패");
+        console.log("[ReviewDetail][onClickDelete][error]");
       }
     });
+  };
+
+  const onClickEdit = () => {
+    history.push({ pathname: `/${userName}/reviews/update` });
   };
 
   return (
@@ -115,7 +102,7 @@ function ReviewDetail(props) {
         <div style={{ flex: "1" }}>
           <Link
             to={{
-              pathname: `/review/edit/${userNickname}/${reviewId}`,
+              pathname: `/review/edit/${userName}/${reviewId}`,
               state: {
                 review: Review,
                 tags: Tags,
@@ -125,7 +112,7 @@ function ReviewDetail(props) {
               },
             }}
           >
-            <Button>Edit</Button>
+            <Button onClick={onClickEdit}>Edit</Button>
           </Link>
         </div>
         <div style={{ flex: "1", textAlign: "right" }}>

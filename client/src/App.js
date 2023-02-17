@@ -37,13 +37,13 @@ function App() {
           <Route exact path="/search" component={Auth(SearchMoviePage, null)} />
           <Route
             exact
-            path="/review/submit/:movieId"
+            path="/:userName/reviews/write"
             component={Auth(ReviewSubmitPage, true)}
           />
-          <Route exact path="/review" component={Auth(ReviewShowPage, true)} />
+          <Route exact path="/reviews" component={Auth(ReviewShowPage, true)} />
           <Route
             exact
-            path="/review/:userNickname/:reviewId"
+            path="/:userNickname/reviews/:reviewId"
             component={Auth(ReviewDetailPage, true)}
           />
           <Route

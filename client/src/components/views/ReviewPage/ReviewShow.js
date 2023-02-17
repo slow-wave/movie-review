@@ -1,33 +1,32 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Row } from "antd";
 import { IMAGE_BASE_URL } from "../../../Config";
 import GridCards from "../commons/GridCards";
-import { Row } from "antd";
 
 function ReviewShow() {
   const [Reviews, setReviews] = useState([]);
+
   let userId = localStorage.getItem("userId");
-  let userNickname = localStorage.getItem("nickname");
+  let userName = localStorage.getItem("nickname");
 
   useEffect(() => {
     fetchReview();
   }, []);
 
   const fetchReview = () => {
-    Axios.post("/api/review/getReview", {
-      writer: userId,
-    }).then((response) => {
+    Axios.get(`/api/${userId}/reviews`).then((response) => {
       if (response.data.success) {
-        setReviews(response.data.reviews);
+        setReviews(response.data.result);
       } else {
-        alert("리뷰 정보 가져오기 실패");
+        alert("[getReviews][error]");
       }
     });
   };
 
   return (
     <div style={{ width: "90%", margin: "1rem auto" }}>
-      <h2 style={{ fontSize: "1.2rem" }}> Reviews of '{userNickname}'</h2>
+      <h2 style={{ fontSize: "1.2rem" }}> Reviews of '{userName}'</h2>
       <hr />
       {/* Review Grid Cards */}
       <Row gutter={[16, 16]}>
@@ -36,7 +35,7 @@ function ReviewShow() {
             <React.Fragment key={index}>
               <GridCards
                 reviewPage
-                nickname={userNickname}
+                nickname={userName}
                 reviewId={review._id}
                 posterPath={review.detailed[0].poster_path}
                 image={

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import { useLocation, useHistory } from "react-router-dom";
+import { Button, Typography } from "antd";
 import TagsPage from "./Sections/Tags";
 import RatingPage from "./Sections/Rating";
 import ContentPage from "./Sections/Content";
 import SimpleMovieInfoPage from "./Sections/SimpleMovieInfo";
-import { Button, Typography } from "antd";
 
 const { Text } = Typography;
 
@@ -15,11 +15,10 @@ function Review(props) {
   const data = useLocation().state;
   let history = useHistory();
   let userId = localStorage.getItem("userId");
-  let userNickname = localStorage.getItem("nickname");
   let movieId = props.match.params.movieId;
 
-  const onClickSubmit = async (event) => {
-    let variables = {
+  const onClickSubmit = () => {
+    let submitData = {
       writer: userId,
       movieId,
       mainContent: document.getElementById("detail").value,
@@ -28,28 +27,15 @@ function Review(props) {
       tagArray: tags,
     };
 
-    await Axios.post("/api/review/submit", variables).then((response) => {
+    Axios.post("/api/reviews", submitData).then((response) => {
+      console.log(response);
       if (response.data.success) {
         alert("리뷰를 등록했습니다!");
-      } else {
-        alert("등록 실패");
-      }
-    });
-
-    await Axios.post("/api/review/getOneReview", {
-      writer: localStorage.getItem("userId"),
-      movieId: movieId,
-    }).then((response) => {
-      if (response.data.success) {
         history.push({
-          pathname: `/review/${userNickname}/${response.data.review[0]._id}`,
-          state: {
-            image: data.movieInfo.poster_path,
-            movieName: data.movieInfo.original_title,
-          },
+          pathname: "/reviews",
         });
       } else {
-        alert("리뷰 정보 가져오기 실패");
+        alert("[createReview][error]");
       }
     });
   };

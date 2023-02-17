@@ -15,28 +15,22 @@ function ReviewEdit() {
   const [tags, setTags] = useState([]);
   const data = useLocation().state;
   let history = useHistory();
-  let userId = localStorage.getItem("userId");
   let userNickname = localStorage.getItem("nickname");
+  let reviewId = data.review._id;
 
-  const onClickEdit = (event) => {
+  const onClickEdit = () => {
     let variables = {
-      _id: data.review._id,
+      _id: reviewId,
       mainContent: document.getElementById("detail").value,
       comment: document.getElementById("one-line").value,
       ratingTotal: bestScore,
       tagArray: tags,
     };
 
-    Axios.post("/api/review/edit", variables).then((response) => {
+    Axios.patch(`/api/reviews/${reviewId}`, variables).then((response) => {
       if (response.data.success) {
         alert("리뷰를 수정했습니다!");
-        history.push({
-          pathname: `/review/${userNickname}/${data.review._id}`,
-          state: {
-            image: data.image,
-            movieName: data.alt,
-          },
-        });
+        history.push({ pathname: "/reviews" });
       } else {
         alert("수정 실패");
       }
