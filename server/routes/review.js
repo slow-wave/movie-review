@@ -1,77 +1,16 @@
-const express = require("express");
-const router = express.Router();
-const { Review } = require("../models/Review");
-const { Tag } = require("../models/Tag");
+var express = require("express");
+var router = express.Router();
+const ReviewController = require("../controllers/review");
 
-router.post("/submit", async (req, res, next) => {
-  try {
-    const review = new Review(req.body);
-    await review.save();
-    const tag = new Tag({ _id: review._id, tagArray: req.body.tagArray });
-    await tag.save();
-    return res.status(200).json({ success: true });
-  } catch (err) {
-    return res.status(400).send(err);
-  }
-});
-
-router.post("/edit", async (req, res) => {
-  var currentVal = { _id: req.body._id };
-  var newVal = { $set: req.body };
-  try {
-    await Review.updateOne(currentVal, newVal);
-    await Tag.updateOne(currentVal, newVal);
-    return res.status(200).json({ success: true });
-  } catch (err) {
-    return res.status(400).send(err);
-  }
-});
-
-router.post("/getReview", (req, res) => {
-  Review.aggregate([
-    {
-      $match: {
-        $expr: { $eq: ["$writer", { $toObjectId: req.body.writer }] },
-      },
-    },
-    {
-      $lookup: {
-        from: "movies",
-        localField: "movieId",
-        foreignField: "_id",
-        as: "detailed",
-      },
-    },
-  ]).exec((err, reviews) => {
-    try {
-      res.status(200).json({ success: true, reviews });
-    } catch {
-      res.status(400).send(err);
-    }
-  });
-});
-
-router.post("/getOneReview", (req, res) => {
-  Review.find(req.body).exec((err, review) => {
-    if (err) return res.status(400).send(err);
-    return res.status(200).json({ success: true, review });
-  });
-});
-
-router.post("/getTag", (req, res) => {
-  Tag.find(req.body).exec((err, tags) => {
-    if (err) return res.status(400).send(err);
-    return res.status(200).json({ success: true, tags });
-  });
-});
-
-router.post("/removeFromReview", (req, res) => {
-  Review.findOneAndDelete({
-    _id: req.body.reviewId,
-  }).exec((err, doc) => {
-    if (err) return res.status(400).send(err);
-    return res.status(200).json({ success: true, doc });
-  });
-});
+//리뷰 목록 조회
+router.get("/:userId/reviews", ReviewController.getReviews);
+//리뷰 상세 조회
+router.get("/:userId/reviews/:reviewId", ReviewController.getReview);
+//리뷰 등록
+router.post("/reviews", ReviewController.createReview);
+//리뷰 수정
+router.patch("/reviews/:reviewId", ReviewController.updateReview);
+//리뷰 삭제
+router.delete("/reviews/:reviewId", ReviewController.deleteReview);
 
 module.exports = router;

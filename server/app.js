@@ -5,8 +5,10 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const dotenv = require("dotenv");
 const CONNECTION_STRING = process.env.CONNECTION_STRING;
 mongoose.set("strictQuery", false);
+dotenv.config();
 
 // const indexRouter = require("./routes/index");
 // const postsRouter = require("./routes/posts");
@@ -34,7 +36,7 @@ app.use("/api/users", require("./routes/users"));
 app.use("/api/favorite", require("./routes/favorite"));
 app.use("/api/comment", require("./routes/comment"));
 app.use("/api/like", require("./routes/like"));
-app.use("/api/review", require("./routes/review"));
+app.use("/api", require("./routes/review"));
 app.use("/api/movie", require("./routes/movie"));
 
 // Return the client
