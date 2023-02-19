@@ -5,7 +5,7 @@ const ReviewController = require("../controllers/review");
 //리뷰 목록 조회
 router.get("/:userId/reviews", ReviewController.getReviews);
 //리뷰 상세 조회
-router.get("/:userId/reviews/:reviewId", ReviewController.getReview);
+router.get("/reviews/:reviewId", ReviewController.getReview);
 //리뷰 등록
 router.post("/reviews", ReviewController.createReview);
 //리뷰 수정

@@ -2,8 +2,8 @@ const ReviewService = require("../services/review");
 
 //리뷰 목록 조회
 exports.getReviews = async (req, res, next) => {
-  let userId = req.params.userId;
   try {
+    let userId = req.params.userId;
     let result = await ReviewService.getReviews(userId);
     return res.status(200).json({ success: true, result });
   } catch (err) {
@@ -14,8 +14,8 @@ exports.getReviews = async (req, res, next) => {
 
 //리뷰 상세 조회
 exports.getReview = async (req, res, next) => {
-  let reviewId = req.params.reviewId;
   try {
+    let reviewId = req.params.reviewId;
     let result = await ReviewService.getReview(reviewId);
     return res.status(200).json({ success: true, result });
   } catch (err) {
@@ -37,11 +37,12 @@ exports.createReview = async (req, res, next) => {
 };
 
 //리뷰 수정
-exports.updateReview = (req, res, next) => {
+exports.updateReview = async (req, res, next) => {
   try {
-    let currentVal = { _id: req.params.reviewId };
+    console.log(req.params);
+    let reviewId = req.params.reviewId;
     let newVal = { $set: req.body };
-    ReviewService.updateReview(currentVal, newVal);
+    await ReviewService.updateReview(reviewId, newVal);
     return res.status(200).json({ success: true });
   } catch (err) {
     console.error("[review.controller][updateReview][error]");
@@ -50,10 +51,10 @@ exports.updateReview = (req, res, next) => {
 };
 
 //리뷰 삭제
-exports.deleteReview = (req, res, next) => {
+exports.deleteReview = async (req, res, next) => {
   try {
     let reviewId = req.params.reviewId;
-    ReviewService.deleteReview(reviewId);
+    await ReviewService.deleteReview(reviewId);
     return res.status(200).json({ success: true });
   } catch (err) {
     console.error("[review.controller][deleteReview][error]");

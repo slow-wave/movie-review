@@ -25,7 +25,7 @@ exports.getReviews = (userId) => {
 };
 
 //리뷰 상세 조회
-exports.getReview = async (reviewId) => {
+exports.getReview = (reviewId) => {
   try {
     let data = Review.find({ _id: reviewId });
     return data;
@@ -35,7 +35,7 @@ exports.getReview = async (reviewId) => {
 };
 
 //리뷰 등록
-exports.createReview = async (review) => {
+exports.createReview = (review) => {
   try {
     let data = new Review(review);
     data.save();
@@ -45,18 +45,20 @@ exports.createReview = async (review) => {
 };
 
 //리뷰 수정
-exports.updateReview = (currentVal, newVal) => {
+exports.updateReview = async (reviewId, newVal) => {
   try {
-    Review.updateOne(currentVal, newVal);
+    let result = await Review.updateOne({ _id: reviewId }, newVal);
+    console.log("[review.service][updateReview][success]", result);
   } catch (err) {
     console.error("[review.service][updateReview][error]");
   }
 };
 
 //리뷰 삭제
-exports.deleteReview = (reviewId) => {
+exports.deleteReview = async (reviewId) => {
   try {
-    Review.findOneAndDelete({ _id: reviewId });
+    let result = await Review.deleteOne({ _id: reviewId });
+    console.log("[review.service][deleteReview][success]", result);
   } catch (err) {
     console.error("[review.service][deleteReview][error]");
   }
