@@ -9,13 +9,13 @@ import SimpleMovieInfoPage from "./Sections/SimpleMovieInfo";
 
 const { Text } = Typography;
 
-function Review(props) {
+function Review() {
   const [bestScore, setbestScore] = useState(0);
   const [tags, setTags] = useState([]);
   const data = useLocation().state;
   let history = useHistory();
   let userId = localStorage.getItem("userId");
-  let movieId = props.match.params.movieId;
+  let movieId = data.movieInfo._id;
 
   const onClickSubmit = () => {
     let submitData = {
@@ -28,7 +28,6 @@ function Review(props) {
     };
 
     Axios.post("/api/reviews", submitData).then((response) => {
-      console.log(response);
       if (response.data.success) {
         alert("리뷰를 등록했습니다!");
         history.push({

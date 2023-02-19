@@ -25,8 +25,7 @@ function ReviewDetail(props) {
   }, []);
 
   const fetchReview = () => {
-    Axios.get(`/api/:userId/reviews/${reviewId}`).then((response) => {
-      console.log(response.data);
+    Axios.get(`/api/reviews/${reviewId}`).then((response) => {
       if (response.data.success) {
         setReview(...response.data.result);
         setTags(response.data.result[0].tagArray);
