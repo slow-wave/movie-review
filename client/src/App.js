@@ -33,7 +33,7 @@ function App() {
             path="/movie/:movieId"
             component={Auth(MovieDetail, null)}
           />
-          <Route exact path="/favorite" component={Auth(FavoritePage, true)} />
+          <Route exact path="/favorites" component={Auth(FavoritePage, true)} />
           <Route exact path="/search" component={Auth(SearchMoviePage, null)} />
           <Route
             exact

@@ -67,7 +67,7 @@ function RightMenu(props) {
             <SearchOutlined />
             Search
           </Nav.Link>
-          <Nav.Link href="/favorite" style={{ color: "#090707" }}>
+          <Nav.Link href="/favorites" style={{ color: "#090707" }}>
             <StarOutlined />
             Favorites
           </Nav.Link>

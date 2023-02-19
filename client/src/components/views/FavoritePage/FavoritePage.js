@@ -20,32 +20,23 @@ function FavoritePage() {
   }, []);
 
   const fetchFavoredMovie = () => {
-    Axios.post("/api/favorite/getFavoredMovie", {
-      userFrom: userId,
-    }).then((response) => {
+    Axios.get(`/api/${userId}/favorites`).then((response) => {
       if (response.data.success) {
-        setFavorites(response.data.favorites);
+        setFavorites(response.data.result);
       } else {
         alert("영화 정보 가져오기 실패");
       }
     });
   };
 
-  const onClickDelete = (movieId, userFrom) => {
-    const variables = {
-      movieId,
-      userFrom,
-    };
-
-    Axios.post("/api/favorite/removeFromFavorite", variables).then(
-      (response) => {
-        if (response.data.success) {
-          fetchFavoredMovie();
-        } else {
-          alert("favorite 삭제 실패");
-        }
+  const onClickDelete = (movieId) => {
+    Axios.delete(`/api/${userId}/${movieId}/favorites`).then((response) => {
+      if (response.data.success) {
+        fetchFavoredMovie();
+      } else {
+        alert("favorite 삭제 실패");
       }
-    );
+    });
   };
 
   const renderCards = Favorites.map((favorite, index) => {
@@ -108,7 +99,7 @@ function FavoritePage() {
         </td>
         <td style={{ textAlign: "center" }}>
           <CloseCircleTwoTone
-            onClick={() => onClickDelete(favorite.movieId, favorite.userFrom)}
+            onClick={() => onClickDelete(favorite.movieId)}
             twoToneColor="#eb2f96"
             style={{ fontSize: "20px" }}
           />

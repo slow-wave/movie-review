@@ -5,16 +5,11 @@ import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 
 function Favorite(props) {
   const movieId = props.movieId;
-  const userFrom = props.userFrom;
+  const userId = props.userFrom;
   const data = props.movieInfo;
 
   const [FavoriteNumber, setFavoriteNumber] = useState(0);
   const [Favorited, setFavorited] = useState(false);
-
-  let favoriteInfo = {
-    userFrom,
-    movieId,
-  };
 
   let movieInfo = {
     _id: movieId,
@@ -42,18 +37,17 @@ function Favorite(props) {
   };
 
   useEffect(() => {
-    Axios.post("/api/favorite/favoriteNumber", favoriteInfo).then(
-      (response) => {
-        setFavoriteNumber(response.data.favoriteNumber);
-        if (response.data.success) {
-        } else {
-          alert("숫자 정보 가져오기 실패");
-        }
-      }
-    );
-
-    Axios.post("/api/favorite/favorited", favoriteInfo).then((response) => {
+    Axios.get(`/api/${movieId}/likes`).then((response) => {
+      setFavoriteNumber(response.data.favoriteNumber);
       if (response.data.success) {
+      } else {
+        alert("숫자 정보 가져오기 실패");
+      }
+    });
+
+    Axios.get(`/api/${userId}/${movieId}/favorites`).then((response) => {
+      if (response.data.success) {
+        console.log(response.data);
         setFavorited(response.data.favorited);
       } else {
         alert("정보 가져오기 실패");
@@ -63,27 +57,23 @@ function Favorite(props) {
 
   const onClickFavorite = () => {
     if (Favorited) {
-      Axios.post("/api/favorite/removeFromFavorite", favoriteInfo).then(
-        (response) => {
-          if (response.data.success) {
-            setFavoriteNumber(FavoriteNumber - 1);
-            setFavorited(!Favorited);
-          } else {
-            alert("Favorite 삭제 실패");
-          }
+      Axios.delete(`/api/${userId}/${movieId}/favorites`).then((response) => {
+        if (response.data.success) {
+          setFavoriteNumber(FavoriteNumber - 1);
+          setFavorited(!Favorited);
+        } else {
+          alert("Favorite 삭제 실패");
         }
-      );
+      });
     } else {
-      Axios.post("/api/favorite/addToFavorite", favoriteInfo).then(
-        (response) => {
-          if (response.data.success) {
-            setFavoriteNumber(FavoriteNumber + 1);
-            setFavorited(!Favorited);
-          } else {
-            alert("Favorite 추가 실패");
-          }
+      Axios.post(`/api/${userId}/${movieId}/favorites`).then((response) => {
+        if (response.data.success) {
+          setFavoriteNumber(FavoriteNumber + 1);
+          setFavorited(!Favorited);
+        } else {
+          alert("Favorite 추가 실패");
         }
-      );
+      });
       Axios.post("/api/movie/addToMovie", movieInfo).then((response) => {
         if (response.data.success) {
         } else {

@@ -72,8 +72,6 @@ function MovieDetail(props) {
         <MovieInfo movie={Movie} />
         {/* Actors Grid */}
         <CastInfo casts={Casts} />
-        {/* Like Info */}
-        <LikeDislikes movieId={movieId} userFrom={userFrom} />
       </div>
       <div style={{ width: "85%", margin: "1rem auto" }}>
         {/* Comment */}
