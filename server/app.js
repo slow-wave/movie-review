@@ -12,7 +12,7 @@ mongoose.set("strictQuery", false);
 
 const app = express();
 
-// view engine setup to a
+// view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
@@ -32,7 +32,7 @@ app.use(cors());
 app.use("/api/users", require("./routes/users"));
 app.use("/api", require("./routes/favorite"));
 app.use("/api/comment", require("./routes/comment"));
-app.use("/api/like", require("./routes/like"));
+app.use("/api", require("./routes/like"));
 app.use("/api", require("./routes/review"));
 app.use("/api/movie", require("./routes/movie"));
 
