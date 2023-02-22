@@ -13,23 +13,25 @@ function LikeDislikes(props) {
   const [LikeAction, setLikeAction] = useState(null);
   const [Dislikes, setDislikes] = useState(0);
   const [DislikeAction, setDislikeAction] = useState(null);
+  let userId = localStorage.userId;
+  let commentId = props.commentId;
+  let movieId = props.movieId;
+  let variable;
 
-  let variable = {};
-
-  if (props.movieId) {
-    variable = { movieId: props.movieId, userId: props.userFrom };
+  if (movieId) {
+    variable = { movieId, userId };
   } else {
-    variable = { commentId: props.commentId, userId: props.userFrom };
+    variable = { commentId, userId };
   }
 
   useEffect(() => {
-    Axios.post("/api/like/getLikes", variable).then((response) => {
+    //좋아요 수 조회
+    Axios.get(`/api/${commentId}/likes`).then((response) => {
       if (response.data.success) {
-        //얼마나 많은 좋아요를 받았는지
-        setLikes(response.data.likes.length);
-        //이미 좋아요를 눌렀는지
-        response.data.likes.map((like) => {
-          if (like.userId === props.userId) {
+        setLikes(response.data.result.length);
+        //로그인 유저가 좋아요를 눌렀는지 확인
+        response.data.result.map((like) => {
+          if (like.userId === userId) {
             setLikeAction("liked");
           }
         });
@@ -38,13 +40,13 @@ function LikeDislikes(props) {
       }
     });
 
-    Axios.post("/api/like/getDislikes", variable).then((response) => {
+    //싫어요 수 조회
+    Axios.get(`/api/${commentId}/dislikes`).then((response) => {
       if (response.data.success) {
-        //얼마나 많은 싫어요를 받았는지
-        setDislikes(response.data.dislikes.length);
-        //이미 싫어요를 눌렀는지
-        response.data.dislikes.map((dislike) => {
-          if (dislike.userId === props.userId) {
+        setDislikes(response.data.result.length);
+        //로그인 유저가 싫어요를 눌렀는지 확인
+        response.data.result.map((dislike) => {
+          if (dislike.userId === userId) {
             setDislikeAction("disliked");
           }
         });
@@ -55,8 +57,10 @@ function LikeDislikes(props) {
   }, []);
 
   const onLike = () => {
+    //좋아요가 등록되지 않았다면
     if (LikeAction === null) {
-      Axios.post("/api/like/upLike", variable).then((response) => {
+      //좋아요 등록
+      Axios.post(`/api/${userId}/${commentId}/likes`).then((response) => {
         if (response.data.success) {
           setLikes(Likes + 1);
           setLikeAction("liked");
@@ -70,7 +74,8 @@ function LikeDislikes(props) {
         }
       });
     } else {
-      Axios.post("/api/like/unLike", variable).then((response) => {
+      //좋아요 삭제
+      Axios.delete(`/api/${userId}/${commentId}/likes`).then((response) => {
         if (response.data.success) {
           setLikes(Likes - 1);
           setLikeAction(null);
@@ -82,8 +87,10 @@ function LikeDislikes(props) {
   };
 
   const onDislike = () => {
+    //싫어요가 등록되지 않았다면
     if (DislikeAction !== null) {
-      Axios.post("/api/like/unDislike", variable).then((response) => {
+      //싫어요 삭제
+      Axios.delete(`/api/${userId}/${commentId}/dislikes`).then((response) => {
         if (response.data.success) {
           setDislikes(Dislikes - 1);
           setDislikeAction(null);
@@ -92,7 +99,8 @@ function LikeDislikes(props) {
         }
       });
     } else {
-      Axios.post("/api/like/upDisLike", variable).then((response) => {
+      //싫어요 등록
+      Axios.post(`/api/${userId}/${commentId}/dislikes`).then((response) => {
         if (response.data.success) {
           setDislikes(Dislikes + 1);
           setDislikeAction("disliked");
