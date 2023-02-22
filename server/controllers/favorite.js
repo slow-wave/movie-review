@@ -29,8 +29,12 @@ exports.getFavorite = async (req, res, next) => {
   try {
     let userId = req.params.userId;
     let movieId = req.params.movieId;
-    let result = await FavoriteService.getFavorite(userId, movieId);
-    return res.status(200).json({ success: true, result });
+    let result = FavoriteService.getFavorite(userId, movieId);
+    let favorited = false;
+    if (result.length !== 0) {
+      favorited = true;
+    }
+    return res.status(200).json({ success: true, favorited });
   } catch (err) {
     console.error("[favorite.controller][getFavorite][error]");
     return res.status(500).json(err);
