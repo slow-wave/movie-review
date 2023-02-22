@@ -37,7 +37,8 @@ function Favorite(props) {
   };
 
   useEffect(() => {
-    Axios.get(`/api/${movieId}/likes`).then((response) => {
+    //영화별 즐겨찾기 수 조회
+    Axios.get(`/api/${movieId}/getFavoriteNum`).then((response) => {
       setFavoriteNumber(response.data.favoriteNumber);
       if (response.data.success) {
       } else {
@@ -45,9 +46,9 @@ function Favorite(props) {
       }
     });
 
+    //로그인한 유저의 즐겨찾기 여부 조회
     Axios.get(`/api/${userId}/${movieId}/favorites`).then((response) => {
       if (response.data.success) {
-        console.log(response.data);
         setFavorited(response.data.favorited);
       } else {
         alert("정보 가져오기 실패");
