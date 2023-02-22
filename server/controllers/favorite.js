@@ -12,14 +12,14 @@ exports.getFavorites = async (req, res, next) => {
   }
 };
 
-//영화별 좋아요 수 가져오기
-exports.getLikes = async (req, res, next) => {
+//영화별 즐겨찾기 수 가져오기
+exports.getFavoriteNum = async (req, res, next) => {
   try {
     let movieId = req.params.movieId;
-    let result = await FavoriteService.getLikes(movieId);
+    let result = await FavoriteService.getFavoriteNum(movieId);
     res.status(200).json({ success: true, favoriteNumber: result.length });
   } catch (err) {
-    console.error("[favorite.controller][getLikes][error]");
+    console.error("[favorite.controller][getFavoriteNum][error]");
     return res.status(500).json(err);
   }
 };

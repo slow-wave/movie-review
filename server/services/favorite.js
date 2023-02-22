@@ -39,13 +39,13 @@ exports.getFavorites = (userId) => {
   }
 };
 
-//영화별 좋아요 수 가져오기
-exports.getLikes = async (movieId) => {
+//영화별 즐겨찾기 수 가져오기
+exports.getFavoriteNum = async (movieId) => {
   try {
     let data = Favorite.find({ movieId });
     return data;
   } catch (err) {
-    console.log("[favorite.service][getLikes][error]");
+    console.log("[favorite.service][getFavoriteNum][error]");
   }
 };
 

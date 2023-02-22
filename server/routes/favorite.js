@@ -4,8 +4,8 @@ const FavoriteController = require("../controllers/favorite");
 
 //사용자별 즐겨찾기 목록 조회
 router.get("/:userId/favorites", FavoriteController.getFavorites);
-//영화별 좋아요 수 가져오기
-router.get("/:movieId/likes", FavoriteController.getLikes);
+//영화별 즐겨찾기 수 가져오기
+router.get("/:movieId/getFavoriteNum", FavoriteController.getFavoriteNum);
 //즐겨찾기 여부 조회
 router.get("/:userId/:movieId/favorites", FavoriteController.getFavorite);
 //즐겨찾기 등록
