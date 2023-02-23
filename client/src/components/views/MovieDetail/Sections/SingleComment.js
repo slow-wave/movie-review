@@ -5,14 +5,10 @@ import LikeDislikes from "./LikeDislikes";
 import { MenuOutlined, DeleteOutlined } from "@ant-design/icons";
 
 function SingleComment(props) {
-  const variables = {
-    writer: props.userFrom,
-    movieId: props.movieId,
-    responseTo: props.comment._id,
-  };
-
+  let commentId = props.comment._id;
   const onDelete = () => {
-    Axios.post("/api/comment/deleteComment", variables).then((response) => {
+    //댓글 삭제
+    Axios.delete(`/api/comments/${commentId}`).then((response) => {
       if (response.data.success) {
       } else {
         alert("comment 삭제 실패");
@@ -43,7 +39,7 @@ function SingleComment(props) {
           <LikeDislikes userId={props.userFrom} commentId={props.comment._id} />
         </div>
         <div style={{ flex: "1", textAlign: "right" }}>
-          {props.userFrom === props.comment.writer._id && (
+          {props.userFrom === props.comment.writer && (
             <Dropdown
               menu={{
                 items,

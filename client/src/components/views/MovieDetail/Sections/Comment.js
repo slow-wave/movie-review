@@ -9,11 +9,9 @@ function Comment(props) {
   const userFrom = props.userFrom;
 
   const [CommentValue, setCommentValue] = useState("");
-
   const handleClick = (event) => {
     setCommentValue(event.currentTarget.value);
   };
-
   const onSubmit = (event) => {
     event.preventDefault();
 
@@ -22,8 +20,8 @@ function Comment(props) {
       writer: userFrom,
       movieId,
     };
-
-    Axios.post("/api/comment/saveComment", variables).then((response) => {
+    //댓글 저장
+    Axios.post("/api/comments", variables).then((response) => {
       if (response.data.success) {
         setCommentValue("");
         props.refreshFunction(response.data.result);
@@ -43,19 +41,16 @@ function Comment(props) {
       <hr />
       {/* Comment Lists */}
       {props.CommentLists &&
-        props.CommentLists.map(
-          (comment, index) =>
-            !comment.responseTo && (
-              <React.Fragment>
-                <SingleComment
-                  comment={comment}
-                  movieId={movieId}
-                  userFrom={userFrom}
-                  refreshFunction={props.refreshFunction}
-                />
-              </React.Fragment>
-            )
-        )}
+        props.CommentLists.map((data, index) => (
+          <React.Fragment>
+            <SingleComment
+              comment={data}
+              movieId={movieId}
+              userFrom={userFrom}
+              refreshFunction={props.refreshFunction}
+            />
+          </React.Fragment>
+        ))}
 
       {/* Root Comment Form */}
       <form style={{ display: "flex", marginTop: "2%" }} onSubmit={onSubmit}>
