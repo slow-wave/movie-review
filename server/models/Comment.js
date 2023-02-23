@@ -8,10 +8,6 @@ const commentSchema = mongoose.Schema({
     movieId: {
         type: String
     },
-    responseTo: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
     content: {
         type: String,
     }
