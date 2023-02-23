@@ -1,13 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const { Movie } = require('../models/Movie');
+var express = require("express");
+var router = express.Router();
+const MovieController = require("../controllers/movie");
 
-router.post('/addToMovie', (req, res) => {
-    const movie = new Movie(req.body)
-    movie.save((err) => {
-        if(err) return res.status(400).send(err)
-        return res.status(200).json({ success: true })
-    })
-})
+//영화 정보 등록
+router.post("/movies/:movieId", MovieController.addMovie);
 
 module.exports = router;
